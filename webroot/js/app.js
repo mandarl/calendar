@@ -244,4 +244,48 @@ $(function () {
         // set text to "Working..."
         $(":submit", this).text("Working...");
     });
+
+
+    /**
+     * Helper functions for event preview
+     */
+    $("#eventPreview a").on("click", function (e) {
+        var sourceForm = document.getElementById('eventDetails');
+        var targetForm = document.getElementById('eventPreview');
+
+        Array.from(sourceForm.elements).forEach(function(element) {
+            if (element.name && element.value && (element.type !== 'hidden' || element.name === 'config')) {
+                console.log('Copying field', element.name, element.value);
+                var targetElement = targetForm.elements[element.name];
+                var targetElementPreview = targetForm.elements[element.name + '_preview'];
+                if (targetElement) {
+                    if (element.type === 'select-one') {
+                        // Set the item text
+                        let selectedText = element.options[element.selectedIndex].text;
+                        targetElement.setAttribute('maxlength', selectedText.length);
+                        targetElement.value = selectedText;
+                    } else if (element.type === 'select-multiple') {
+                        targetElement.value = getSelectedOptions(element);
+                    } else {
+                        targetElement.value = element.value;
+                    }
+                } else if (targetElementPreview) {
+                    if (element.type === 'select-one') {
+                        // Set the item text
+                        let selectedText = element.options[element.selectedIndex].text;
+                        targetElementPreview.setAttribute('maxlength', selectedText.length);
+                        targetElementPreview.value = selectedText;
+                    } else {
+                        targetElementPreview.value = element.value;
+                    }
+                }
+            }
+        });
+        targetForm.submit();
+    });
+
+    function getSelectedOptions(select) {
+        return [...select.selectedOptions].map(el => el.value + ':' + el.text).join(';')
+    }
+
 });

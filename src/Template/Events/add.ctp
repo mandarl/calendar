@@ -12,7 +12,7 @@
         </div>
     <?php else: ?>
         <?= $this->Flash->render() ?>
-        <?= $this->Form->create($event, ['type' => 'file']) ?>
+        <?= $this->Form->create($event, ['id' => 'eventDetails', 'type' => 'file']) ?>
         <fieldset>
             <legend>General</legend>
             <div class="row">
@@ -424,6 +424,52 @@
         <?= $this->Form->hidden('class_number', ['default' => 1]) ?>
         <?= $this->Form->hidden('status', ['default' => 'pending']) ?>
         <?= $this->Form->button(__('Submit Event')) ?>
+        <?= $this->Form->end() ?>
+
+        <?= $this->Form->create($event, ['id' => 'eventPreview', 'url' => ['action' => 'preview'], 'target' => '_blank']) ?>
+        <?= $this->Html->link(__('Open Preview'), '#', ['onclick' => 'copyInputsAndSubmit();']) ?>
+
+        <?= $this->Form->input('name') ?>
+        <?= $this->Form->input('optional_categories[_ids][]', ['type' => 'text']) ?>
+        <?= $this->Form->input('tools[_ids][]', ['type' => 'text']) ?>
+        <?= $this->Form->input('short_description') ?>
+        <?= $this->Form->input('event_start_preview') ?>
+        <?= $this->Form->input('event_end_preview') ?>
+        <?= $this->Form->input('multipart_event') ?>
+        <?= $this->Form->input('sponsored') ?>
+        <?= $this->Form->input('long_description') ?>
+        <?= $this->Form->input('event_start_2_preview') ?>
+        <?= $this->Form->input('event_end_2_preview') ?>
+        <?= $this->Form->input('event_start_3_preview') ?>
+        <?= $this->Form->input('event_end_3_preview') ?>
+        <?= $this->Form->input('event_start_4_preview') ?>
+        <?= $this->Form->input('event_end_4_preview') ?>
+        <?= $this->Form->input('event_start_5_preview') ?>
+        <?= $this->Form->input('event_end_5_preview') ?>
+        <?= $this->Form->input('contact.name') ?>
+        <?= $this->Form->input('contact.email') ?>
+        <?= $this->Form->input('contact.phone') ?>
+        <?= $this->Form->input('eventbrite_link') ?>
+        <?= $this->Form->input('cost') ?>
+        <?= $this->Form->input('free_spaces') ?>
+        <?= $this->Form->input('paid_spaces') ?>
+        <?= $this->Form->input('attendee_cancellation_preview') ?>
+        <?= $this->Form->input('extend_registration_preview') ?>
+        <?= $this->Form->input('members_only') ?>
+        <?= $this->Form->input('attendees_require_approval') ?>
+        <?= $this->Form->input('age_restriction_preview') ?>
+        <?= $this->Form->input('fulfills_prerequisite_id') ?>
+        <?= $this->Form->input('requires_prerequisite_id') ?>
+        <?= $this->Form->input('advisories') ?>
+        <?= $this->Form->input('room_id_preview') ?>
+        <?= $this->Form->input('booking_start_preview') ?>
+        <?= $this->Form->input('booking_end_preview') ?>
+        <?= $this->Form->input('notifyInstructorRegistrations') ?>
+        <?= $this->Form->input('notifyInstructorCancellations') ?>
+        <?= $this->Form->input('request_honorarium') ?>
+        <?= $this->Form->input('honorarium.committee_id_preview') ?>
+        <?= $this->Form->input('honorarium.pay_contact_preview') ?>
+
         <?= $this->Form->end() ?>
 
         <div id="config-mininum-booking-lead-time" class="hidden"><?= $config[4] ?></div>

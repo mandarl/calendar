@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Component\EmailComponent;
 use App\Model\Entity\Contact;
+use App\Model\Entity\EventPreview;
 use LdapRecord\Models\ActiveDirectory\User;
 use LdapRecord\Models\ActiveDirectory\Group;
 use LdapRecord\Container;
@@ -13,6 +14,7 @@ use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
@@ -73,7 +75,7 @@ class EventsController extends AppController
 
     public function isAuthorized($user = null)
     {
-        if (in_array($this->request->getParam('action'), ['add', 'attending', 'submitted'])) {
+        if (in_array($this->request->getParam('action'), ['add', 'attending', 'submitted', 'preview'])) {
             return !is_null($user);
         }
 
@@ -1087,7 +1089,7 @@ class EventsController extends AppController
                 $this->set('totalSpaces', $totalSpaces);
 
                 // Add to calendar links
-                $this->set('addToCalLinks', $this->getAddToCalLinks($event->getSubject()->entity));
+                $this->set('addToCalLinks', $this->getAddToCalLinks($event->getSubject()->entity->event_start, $event->getSubject()->entity->event_end, $event->getSubject()->entity));
             }
         );
 
@@ -1096,11 +1098,11 @@ class EventsController extends AppController
         return $this->Crud->execute();
     }
 
-    public function getAddToCalLinks(object $event) {
-        $start_date_iso8601 = $this->getISO8601Date($event->event_start);
-        $end_date_iso8601 = $this->getISO8601Date($event->event_end);
-        $start_date_c = urlencode($event->event_start->setTimezone('America/Chicago')->i18nFormat("yyyy-MM-dd'T'HH:mm:ss")); // 2020-04-19T13:30:00Z
-        $end_date_c = urlencode($event->event_end->setTimezone('America/Chicago')->i18nFormat("yyyy-MM-dd'T'HH:mm:ss"));
+    public function getAddToCalLinks(FrozenTime $event_start, FrozenTime $event_end, object $event) {
+        $start_date_iso8601 = $this->getISO8601Date($event_start);
+        $end_date_iso8601 = $this->getISO8601Date($event_end);
+        $start_date_c = urlencode($event_start->setTimezone('America/Chicago')->i18nFormat("yyyy-MM-dd'T'HH:mm:ss")); // 2020-04-19T13:30:00Z
+        $end_date_c = urlencode($event_end->setTimezone('America/Chicago')->i18nFormat("yyyy-MM-dd'T'HH:mm:ss"));
         $title = urlencode($event->name);
         $description = urlencode($event->short_description);
         $address = '1825%20Monetary%20Ln%20%23104%20Carrollton%2C%20TX%2075006';
@@ -1156,6 +1158,19 @@ class EventsController extends AppController
                 ->withDownload($filename)
                 ->withStringBody("$vcalendar");
 
+    }
+
+    /**
+     * Action to preview an event before submitting
+     */
+    public function preview()
+    {
+        $event = new EventPreview($this->request->getData(), $this->Auth->user('samaccountname'));
+        // Add to calendar links
+        $event_start = new FrozenTime($event->event_start);
+        $event_end = new FrozenTime($event->event_end);
+        $this->set('addToCalLinks', $this->getAddToCalLinks($event_start, $event_end, $event));
+        $this->set('event', $event);
     }
 
     public function add()

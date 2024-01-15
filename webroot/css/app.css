@@ -266,3 +266,8 @@ footer {
   /* Filter text input should match the width of parent ul */
   width: 100%;
 }
+
+/* Hide the elements of the event preview form */
+#eventPreview div {
+  display: none;
+}
