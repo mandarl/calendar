@@ -41,6 +41,26 @@ We also local bind a few folders to make development easier:
 When someone understands how we're using [Xdebug](http://xdebug.org) can they
 please update this section?
 
+## Outbound webhooks
+
+Calendar events POST a generic payload (id, organizer username, name, start
+time, url) to configured targets when they're published (approved, either
+manually or via the `cron()` auto-approval job). See `WebhookComponent` in
+`src/Controller/Component/WebhookComponent.php`.
+
+Targets are configured entirely through the `WEBHOOK_TARGETS` env var - a
+JSON array, so adding a new consumer is a config change, not a code change:
+
+```
+WEBHOOK_TARGETS='[{"name":"member-portal","url":"https://portal.example/webhooks/calendar","secret":"changeme"}]'
+```
+
+Each target's `secret` is sent back as the `X-DMS-Webhook-Secret` header so
+the receiver can authenticate the request. `WEBHOOK_TIMEOUT` (seconds, default
+3) bounds how long delivery to a single target can add to the request that
+triggered it - delivery is best-effort and failures are only logged, never
+allowed to block event creation or approval.
+
 ## FAQ
 
 - I get `open dms-ad-openldap/docker-compose.yml: no such file or directory`

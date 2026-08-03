@@ -345,6 +345,19 @@ return [
     ],
 
     /**
+     * Outbound webhook configuration. Each entry in `targets` gets a POST
+     * on qualifying calendar events (see WebhookComponent). `name` is only
+     * used for logging; `url` and `secret` are required.
+     *
+     * WEBHOOK_TARGETS is a JSON array, e.g.:
+     * [{"name":"member-portal","url":"https://portal.example/webhooks/calendar","secret":"changeme"}]
+     */
+    'Webhooks' => [
+        'targets' => json_decode(env('WEBHOOK_TARGETS', '[]'), true) ?: [],
+        'timeout' => (int) env('WEBHOOK_TIMEOUT', 3), // seconds, per-target
+    ],
+
+    /**
      * AD configuration
      */
     'ActiveDirectory' => [

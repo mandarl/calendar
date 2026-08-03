@@ -3,6 +3,7 @@ namespace App\Controller;
 
 
 use App\Controller\Component\EmailComponent;
+use App\Controller\Component\WebhookComponent;
 use App\Model\Entity\Contact;
 use App\Model\Entity\File;
 use LdapRecord\Models\ActiveDirectory\User;
@@ -27,6 +28,7 @@ use FeedIo\Feed;
  *
  * @property \App\Model\Table\EventsTable $Events
  * @property EmailComponent $Email
+ * @property WebhookComponent $Webhook
  */
 class EventsController extends AppController
 {
@@ -41,6 +43,7 @@ class EventsController extends AppController
     public function initialize(){
         parent::initialize();
         $this->loadComponent('Email');
+        $this->loadComponent('Webhook');
     }
 
     public function beforeFilter(Event $event)
@@ -1111,6 +1114,10 @@ class EventsController extends AppController
                     $event->getSubject()->entity, //Event
                 );
 
+                // Notify subscribed external systems (e.g. member-portal) that
+                // this event is now publicly visible.
+                $this->Webhook->dispatchEventPublished($event->getSubject()->entity);
+
             }
         );
 
@@ -1554,6 +1561,7 @@ class EventsController extends AppController
         foreach ($autoApprovedEvents as $event) {
             $event->status = 'approved';
             $this->Events->save($event);
+            $this->Webhook->dispatchEventPublished($event);
         }
 
         // Auto-approve Honoraria
@@ -1573,6 +1581,7 @@ class EventsController extends AppController
         foreach ($autoApprovedHonoraria as $event) {
             $event->status = 'approved';
             $this->Events->save($event);
+            $this->Webhook->dispatchEventPublished($event);
         }
 
         // Notify attendees that they can cancel for another 24 hours
