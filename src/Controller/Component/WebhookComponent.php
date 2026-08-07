@@ -2,6 +2,7 @@
 namespace App\Controller\Component;
 
 use App\Model\Entity\Event;
+use Cake\Chronos\ChronosInterface;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Http\Client;
@@ -57,7 +58,13 @@ class WebhookComponent extends Component
      */
     public function dispatchEventPublished(Event $event): void
     {
-        $start = $event->event_start instanceof Time
+        // Match against ChronosInterface, not the concrete Time class - the
+        // app enables immutable ORM datetimes (see config/bootstrap.php),
+        // so event_start actually hydrates as FrozenTime, not Time. Time and
+        // FrozenTime are siblings (no inheritance relationship), so an
+        // `instanceof Time` check silently misses every real event and
+        // always sent a null event_start.
+        $start = $event->event_start instanceof ChronosInterface
             ? $event->event_start->setTimezone('UTC')->toAtomString()
             : null;
 

@@ -8,6 +8,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
+use Cake\I18n\FrozenTime;
 use Cake\I18n\Time;
 use Cake\TestSuite\TestCase;
 
@@ -54,11 +55,15 @@ class WebhookComponentTest extends TestCase
         $webhook = $this->_makeComponent();
         $webhook->setHttpClient($client);
 
+        // Config::build('datetime')->useImmutable() (config/bootstrap.php)
+        // means every real ORM-hydrated Event has a FrozenTime event_start,
+        // never a (mutable) Time - this must be FrozenTime, not Time, or
+        // this test won't catch a regression to `instanceof Time`.
         $event = new Event([
             'id' => 1234,
             'name' => 'Test Event',
             'created_by' => 'jdoe',
-            'event_start' => new Time('2026-08-15 18:00:00', 'UTC'),
+            'event_start' => new FrozenTime('2026-08-15 18:00:00', 'UTC'),
         ]);
 
         $webhook->dispatchEventPublished($event);
