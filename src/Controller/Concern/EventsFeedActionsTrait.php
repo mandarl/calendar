@@ -213,7 +213,9 @@ trait EventsFeedActionsTrait
                         $media[] = new FeedMedia(
                             Configure::read('App.fullBaseUrl') . '/' . str_replace('webroot/', '', $file->dir) . rawurlencode($file->file),
                             (string)$file->type,
-                            filesize(ROOT . DS . $file->dir . $file->file)
+                            // A missing upload makes filesize() return false. Cake 3's feed library applied intval(),
+                            // so the enclosure said length="0"; the typed FeedMedia would throw and 500 the whole feed.
+                            (int)filesize(ROOT . DS . $file->dir . $file->file)
                         );
                     }
                 }
