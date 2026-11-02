@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -29,7 +31,7 @@ class Contact extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         '*' => true,
         'id' => true,
     ];
@@ -39,6 +41,6 @@ class Contact extends Entity
      */
     protected function _getContactListLabel()
     {
-        return $this->_properties['name'] . ' (' . $this->_properties['email'] . ')';
+        return $this->_fields['name'] . ' (' . $this->_fields['email'] . ')';
     }
 }

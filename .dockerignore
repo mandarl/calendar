@@ -1,4 +1,6 @@
 .DS_Store
+.git
+.env
 /bower_components
 /logs
 /tmp
@@ -14,3 +16,7 @@ config/Migrations/schema-dump-default.lock
 .vscode/*
 .github/*
 *.dist
+/e2e
+/docs
+/tests/legacy-cake3-stubs
+/node_modules

@@ -1,49 +1,56 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
+/**
+ * Logs Controller: the audit log (every page view of a logged-in user), Calendar Super Admins only.
+ */
 class LogsController extends AppController
 {
-    public function isAuthorized($user = null)
-    {
-        return $this->inAdminstrativeGroup($user, 'Calendar Super Admins');
-    }
-
-	public function index ()
+    public function index()
     {
         $this->Crud->on(
             'beforePaginate',
-            function (\Cake\Event\Event $event) {
-               	if (!empty($_GET['start_date']) || !empty($_GET['end_date']) || !empty($_GET['user_name']) || !empty($_GET['search_string'])) {
-		    	    $where = [];
+            function (EventInterface $event) {
+                // The Cake 3 code read $_GET directly; the request holds the same values.
+                $query = $this->request->getQuery();
+                $startDate = $query['start_date'] ?? null;
+                $endDate = $query['end_date'] ?? null;
+                $userName = $query['user_name'] ?? null;
+                $searchString = $query['search_string'] ?? null;
 
-                    if (!empty($_GET['start_date']) && !empty($_GET['end_date'])) {
-                	    $start_date = new \DateTime($_GET['start_date'] . ' 23:59:59', new \DateTimeZone('America/Chicago'));
-                	    $start_date->setTimezone(new \DateTimeZone('UTC'));
+                if (!empty($startDate) || !empty($endDate) || !empty($userName) || !empty($searchString)) {
+                    $where = [];
 
-                	    $end_date = new \DateTime($_GET['end_date'] . ' 23:59:59', new \DateTimeZone('America/Chicago'));
-                	    $end_date->setTimezone(new \DateTimeZone('UTC'));
+                    if (!empty($startDate) && !empty($endDate)) {
+                        // Kept from Cake 3: the range starts at 23:59:59 of the start day.
+                        $start = new \DateTime($startDate . ' 23:59:59', new \DateTimeZone('America/Chicago'));
+                        $start->setTimezone(new \DateTimeZone('UTC'));
 
-                        $where['Logs.date_time >='] = $start_date->format('Y-m-d H:i:s');
-                        $where['Logs.date_time <='] = $end_date->format('Y-m-d H:i:s');
+                        $end = new \DateTime($endDate . ' 23:59:59', new \DateTimeZone('America/Chicago'));
+                        $end->setTimezone(new \DateTimeZone('UTC'));
+
+                        $where['Logs.date_time >='] = $start->format('Y-m-d H:i:s');
+                        $where['Logs.date_time <='] = $end->format('Y-m-d H:i:s');
                     }
 
-                    if ($_GET['user_name']) {
-                        $where['Logs.user LIKE'] = "%" . $_GET['user_name'] . "%";
+                    if ($userName) {
+                        $where['Logs.user LIKE'] = '%' . $userName . '%';
                     }
 
-                    if ($_GET['search_string']) {
-                        $where['Logs.description LIKE'] = "%" . $_GET['search_string'] . "%";
+                    if ($searchString) {
+                        $where['Logs.description LIKE'] = '%' . $searchString . '%';
                     }
 
                     $event->getSubject()->query
-                        ->where($where )
-                        ->order(['Logs.date_time' => 'DESC']);
+                        ->where($where)
+                        ->orderBy(['Logs.date_time' => 'DESC']);
                     $this->paginate['limit'] = 50;
                 } else {
-        	        $event->getSubject()->query->select([
+                    $event->getSubject()->query->select([
                         'Logs.date_time',
                         'Logs.description',
                         'Logs.user',
@@ -52,12 +59,12 @@ class LogsController extends AppController
                         'Logs.controller',
                         'Logs.action',
                     ])
-                        ->order(['Logs.date_time' => 'DESC']);
+                        ->orderBy(['Logs.date_time' => 'DESC']);
                     $this->paginate['limit'] = 50;
                 }
             }
         );
 
         return $this->Crud->execute();
-	}
+    }
 }

@@ -1,42 +1,25 @@
 <?php
-return [
-    /**
-     * Debug Level:
-     *
-     * Production Mode:
-     * false: No error messages, errors, or warnings shown.
-     *
-     * Development Mode:
-     * true: Errors and warnings shown.
-     */
-    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
-    'isDevelopment' =>filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
+/**
+ * Application configuration (CakePHP 5). Every value comes from the same environment variables as the Cake 3
+ * build (see .docker/environment.conf); the runtime contract is unchanged.
+ *
+ * Production copies this file to config/app.php at image build. The e2e harness bind-mounts an adapter over
+ * config/app.php that `require`s this file and overlays only the mail transport.
+ */
 
-    /**
-     * Configure basic information about the application.
-     *
-     * - namespace - The namespace to find app classes under.
-     * - defaultLocale - The default locale for translation, formatting currencies and numbers, date and time.
-     * - encoding - The encoding used for HTML + database connections.
-     * - base - The base directory the app resides in. If false this
-     *   will be auto detected.
-     * - dir - Name of app directory.
-     * - webroot - The webroot directory.
-     * - wwwRoot - The file path to webroot.
-     * - baseUrl - To configure CakePHP to *not* use mod_rewrite and to
-     *   use CakePHP pretty URLs, remove these .htaccess
-     *   files:
-     *      /.htaccess
-     *      /webroot/.htaccess
-     *   And uncomment the baseUrl key below.
-     * - fullBaseUrl - A base URL to use for absolute links.
-     * - imageBaseUrl - Web path to the public images directory under webroot.
-     * - cssBaseUrl - Web path to the public css directory under webroot.
-     * - jsBaseUrl - Web path to the public js directory under webroot.
-     * - paths - Configure paths for non class based resources. Supports the
-     *   `plugins`, `templates`, `locales` subkeys, which allow the definition of
-     *   paths for plugins, view templates and locale files respectively.
-     */
+use Cake\Cache\Engine\FileEngine;
+use Cake\Database\Connection;
+use Cake\Database\Driver\Mysql;
+use Cake\Error\Renderer\WebExceptionRenderer;
+use Cake\Log\Engine\FileLog;
+use Cake\Routing\Exception\MissingControllerException;
+
+$debug = filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN);
+
+return [
+    'debug' => $debug,
+    'isDevelopment' => $debug,
+
     'App' => [
         'namespace' => 'App',
         'encoding' => env('APP_ENCODING', 'UTF-8'),
@@ -46,160 +29,83 @@ return [
         'dir' => 'src',
         'webroot' => 'webroot',
         'wwwRoot' => WWW_ROOT,
-        // 'baseUrl' => env('SCRIPT_NAME'),
         'fullBaseUrl' => false,
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
         'paths' => [
             'plugins' => [ROOT . DS . 'plugins' . DS],
-            'templates' => [APP . 'Template' . DS],
-            'locales' => [APP . 'Locale' . DS],
+            'templates' => [ROOT . DS . 'templates' . DS],
+            'locales' => [RESOURCES . 'locales' . DS],
         ],
     ],
 
-    /**
-     * Security and encryption configuration
-     *
-     * - salt - A random string used in security hashing methods.
-     *   The salt value is also used as the encryption key.
-     *   You should treat it as extremely sensitive data.
+    /*
+     * NOTE (carried over from the Cake 3 build, see handoff doc section 5 / workbreakdown): the Apache SetEnv in
+     * .docker/environment.conf exports APP_SECURITY_SALT, but this key has always read SECURITY_SALT, so
+     * production runs on the public default salt. Behaviour preserved; fix deliberately, not silently.
      */
     'Security' => [
         'salt' => env('SECURITY_SALT', 'SOME_SECURE_SALT'),
     ],
 
-    /**
-     * Apply timestamps with the last modified time to static assets (js, css, images).
-     * Will append a querystring parameter containing the time the file was modified.
-     * This is useful for busting browser caches.
-     *
-     * Set to true to apply timestamps when debug is true. Set to 'force' to always
-     * enable timestamping regardless of debug value.
-     */
     'Asset' => [
-        // 'timestamp' => true,
     ],
 
-    /**
-     * Configure the cache adapters.
-     */
     'Cache' => [
         'default' => [
-            'className' => 'File',
+            'className' => FileEngine::class,
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
         ],
-
-        /**
-         * Configure the cache used for general framework caching.
-         * Translation cache files are stored with this configuration.
-         * Duration will be set to '+2 minutes' in bootstrap.php when debug = true
-         * If you set 'className' => 'Null' core cache will be disabled.
-         */
-        '_cake_core_' => [
-            'className' => 'Cake\Cache\Engine\FileEngine',
-            'prefix' => 'myapp_cake_core_',
-            'path' => CACHE . 'persistent/',
+        '_cake_translations_' => [
+            'className' => FileEngine::class,
+            'prefix' => 'myapp_cake_translations_',
+            'path' => CACHE . 'persistent' . DS,
             'serialize' => true,
             'duration' => '+2 minutes',
             'url' => env('CACHE_CAKECORE_URL', null),
         ],
-
-        /**
-         * Configure the cache for model and datasource caches. This cache
-         * configuration is used to store schema descriptions, and table listings
-         * in connections.
-         * Duration will be set to '+1 year' in bootstrap.php when debug = false
-         */
         '_cake_model_' => [
-            'className' => 'Cake\Cache\Engine\FileEngine',
+            'className' => FileEngine::class,
             'prefix' => 'myapp_cake_model_',
-            'path' => CACHE . 'models/',
+            'path' => CACHE . 'models' . DS,
             'serialize' => true,
             'duration' => '+2 minutes',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
-
-        /**
-         * Configure the cache for routes. The cached routes collection is built the
-         * first time the routes are processed via `config/routes.php`.
-         * Duration will be set to '+2 seconds' in bootstrap.php when debug = true
-         */
-        '_cake_routes_' => [
-            'className' => 'Cake\Cache\Engine\FileEngine',
-            'prefix' => 'myapp_cake_routes_',
-            'path' => CACHE,
-            'serialize' => true,
-            'duration' => '+1 years',
-            'url' => env('CACHE_CAKEROUTES_URL', null),
-        ],
     ],
 
-    /**
-     * Configure the Error and Exception handlers used by your application.
-     *
-     * By default errors are displayed using Debugger, when debug is true and logged
-     * by Cake\Log\Log when debug is false.
-     *
-     * In CLI environments exceptions will be printed to stderr with a backtrace.
-     * In web environments an HTML page will be displayed for the exception.
-     * With debug true, framework errors like Missing Controller will be displayed.
-     * When debug is false, framework errors will be coerced into generic HTTP errors.
-     *
-     * Options:
-     *
-     * - `errorLevel` - int - The level of errors you are interested in capturing.
-     * - `trace` - boolean - Whether or not backtraces should be included in
-     *   logged errors/exceptions.
-     * - `log` - boolean - Whether or not you want exceptions logged.
-     * - `exceptionRenderer` - string - The class responsible for rendering
-     *   uncaught exceptions.  If you choose a custom class you should place
-     *   the file for that class in src/Error. This class needs to implement a
-     *   render method.
-     * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
-     *   extend one of the listed exceptions will also be skipped for logging.
-     *   E.g.:
-     *   `'skipLog' => ['Cake\Network\Exception\NotFoundException', 'Cake\Network\Exception\UnauthorizedException']`
-     * - `extraFatalErrorMemory` - int - The number of megabytes to increase
-     *   the memory limit by when a fatal error is encountered. This allows
-     *   breathing room to complete logging or error handling.
-     */
     'Error' => [
         'errorLevel' => E_ALL & ~E_DEPRECATED,
-        'exceptionRenderer' => 'Cake\Error\ExceptionRenderer',
-        // Requests for URLs that map to no controller (bots probing /wp-content, /Cart.json, ...) still get a
-        // 404 page but are not logged as errors; they drowned the real errors in error.log.
-        'skipLog' => ['Cake\Routing\Exception\MissingControllerException'],
+        'skipLog' => [MissingControllerException::class],
+        'exceptionRenderer' => WebExceptionRenderer::class,
         'log' => true,
         'trace' => true,
+        'ignoredDeprecationPaths' => [],
     ],
 
-    /**
-     * Email configuration.
+    /*
+     * Mail. Owner decision: mail goes out through the SparkPost API, as in the Cake 3 build (where a Cake-3-only
+     * plugin provided the `sparkpost` transport), with click tracking OFF for every transmission: the kit transport
+     * sends options.click_tracking = false and refuses an `options` config that enables it. Open tracking is left
+     * at the SparkPost default, as the old plugin did.
      *
-     * By defining transports separately from delivery profiles you can easily
-     * re-use transport configuration across multiple profiles.
+     * `sparkpost` is the libkit transport (src/Kit/Cake/SparkPostTransport.php, a Cake AbstractTransport using the
+     * kit's small PSR-18 client; the official sparkpost/sparkpost package is NOT used). Optional keys: base_url
+     * (SPARKPOST_BASE_URL, e.g. the EU endpoint or a test double), timeout, options, client. The mail code is written
+     * against Cake\Mailer\Mailer and only names the transport through Email.default.transport. Keep a
+     * `catch (Throwable)` around every send: the transport throws MailException on any failure.
      *
-     * You can specify multiple configurations for production, development and
-     * testing.
-     *
-     * Each transport needs a `className`. Valid options are as follows:
-     *
-     *  Mail   - Send using PHP mail function
-     *  Smtp   - Send using SMTP
-     *  Debug  - Do not send the email, just return the result
-     *
-     * You can add custom transports (or override existing transports) by adding the
-     * appropriate file to src/Mailer/Transport.  Transports should be named
-     * 'YourTransport.php', where 'Your' is the name of the transport.
+     * `default` is a plain SMTP transport from EMAIL_HOST / EMAIL_PORT / EMAIL_TIMEOUT / EMAIL_TLS (optional
+     * EMAIL_USERNAME / EMAIL_PASSWORD) for local development; select it with EMAIL_TRANSPORT=default.
      */
     'EmailTransport' => [
         'default' => [
             'className' => 'Smtp',
             'host' => env('EMAIL_HOST', 'localhost'),
-            'port' => env('EMAIL_PORT', 25),
-            'timeout' => floatval(env('EMAIL_TIMEOUT', '30')),
+            'port' => (int)env('EMAIL_PORT', 25),
+            'timeout' => (int)env('EMAIL_TIMEOUT', 30),
             'username' => env('EMAIL_USERNAME', null),
             'password' => env('EMAIL_PASSWORD', null),
             'client' => null,
@@ -207,42 +113,30 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
         'sparkpost' => [
-            'className' => 'SparkPost.SparkPost',
+            'className' => \Dms\Kit\Cake\SparkPostTransport::class,
             'apiKey' => env('SPARKPOST_APIKEY', null),
+            'base_url' => env('SPARKPOST_BASE_URL', 'https://api.sparkpost.com'),
+            'timeout' => (int)env('EMAIL_TIMEOUT', 30),
         ],
     ],
 
-    /**
-     * Email delivery profiles
-     *
-     * Delivery profiles allow you to predefine various properties about email
-     * messages from your application and give the settings a name. This saves
-     * duplication across your application and makes maintenance and development
-     * easier. Each profile accepts a number of keys. See `Cake\Mailer\Email`
-     * for more information.
-     */
     'Email' => [
         'default' => [
-            'transport' => 'sparkpost',
-            'from' => 'admin@dallasmakerspace.org',
+            'transport' => env('EMAIL_TRANSPORT', 'sparkpost'),
+            'from' => env('EMAIL_FROM', 'admin@dallasmakerspace.org'),
         ],
     ],
 
-    /**
-     * Connection information used by the ORM to connect
-     * to your application's datastores.
-     * Drivers include Mysql Postgres Sqlite Sqlserver
-     * See vendor\cakephp\cakephp\src\Database\Driver for complete list
-     */
     'Datasources' => [
         'default' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
+            'className' => Connection::class,
+            'driver' => Mysql::class,
             'persistent' => false,
             'host' => env('DB_HOST', 'localhost'),
             'username' => env('DB_USERNAME', 'mysql'),
             'password' => env('DB_PASSWORD', 'mysql'),
             'database' => env('DB_DATABASE', 'dms-calendar'),
+            // The schema is utf8 (utf8mb3). Do not move to utf8mb4 without a schema change decided by the owner.
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -253,83 +147,42 @@ return [
         ],
     ],
 
-    /**
-     * Configures logging options
-     */
     'Log' => [
         'debug' => [
-            'className' => 'Cake\Log\Engine\FileLog',
+            'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'debug',
             'rotate' => 10,
             'size' => 10485760,
-            'levels' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN) ? ['notice', 'info', 'debug'] : [],
+            'levels' => $debug ? ['notice', 'info', 'debug'] : [],
         ],
         'error' => [
-            'className' => 'Cake\Log\Engine\FileLog',
+            'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'error',
             'rotate' => 10,
             'size' => 10485760,
             'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
         ],
-        // To enable this dedicated query log, you need set your datasource's log flag to true
         'queries' => [
-            'className' => 'Cake\Log\Engine\FileLog',
+            'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'queries',
             'rotate' => 10,
             'size' => 10485760,
-            'scopes' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN) ? ['queriesLog'] : [],
+            'scopes' => $debug ? ['queriesLog'] : [],
         ],
     ],
 
-    /**
-     * Session configuration.
-     *
-     * Contains an array of settings to use for session configuration. The
-     * `defaults` key is used to define a default preset to use for sessions, any
-     * settings declared here will override the settings of the default config.
-     *
-     * ## Options
-     *
-     * - `cookie` - The name of the cookie to use. Defaults to 'CAKEPHP'.
-     * - `cookiePath` - The url path for which session cookie is set. Maps to the
-     *   `session.cookie_path` php.ini config. Defaults to base path of app.
-     * - `timeout` - The time in minutes the session should be valid for.
-     *    Pass 0 to disable checking timeout.
-     *    Please note that php.ini's session.gc_maxlifetime must be equal to or greater
-     *    than the largest Session['timeout'] in all served websites for it to have the
-     *    desired effect.
-     * - `defaults` - The default configuration set to use as a basis for your session.
-     *    There are four built-in options: php, cake, cache, database.
-     * - `handler` - Can be used to enable a custom session handler. Expects an
-     *    array with at least the `engine` key, being the name of the Session engine
-     *    class to use for managing the session. CakePHP bundles the `CacheSession`
-     *    and `DatabaseSession` engines.
-     * - `ini` - An associative array of additional ini values to set.
-     *
-     * The built-in `defaults` options are:
-     *
-     * - 'php' - Uses settings defined in your php.ini.
-     * - 'cake' - Saves session files in CakePHP's /tmp directory.
-     * - 'database' - Uses CakePHP's database sessions.
-     * - 'cache' - Use the Cache class to save sessions.
-     *
-     * To define a custom session handler, save it at src/Network/Session/<name>.php.
-     * Make sure the class implements PHP's `SessionHandlerInterface` and set
-     * Session.handler to <name>
-     *
-     * To use database sessions, load the SQL file located at config/Schema/sessions.sql
-     */
     'Session' => [
         'defaults' => 'php',
-        'timeout' => 86400, // 60 days in minutes
+        'timeout' => 86400, // minutes (60 days), as in the Cake 3 build
     ],
 
-    /**
-     * Braintree configuration
-     */
+    'DebugKit' => [
+        'ignoreAuthorization' => true,
+    ],
+
     'Braintree' => [
         'environment' => env('BRAINTREE_ENV', null),
         'merchantId' => env('BRAINTREE_MERCHID', null),
@@ -337,52 +190,33 @@ return [
         'privateKey' => env('BRAINTREE_PRIVKEY', null),
     ],
 
-    /**
-     * Twilio configuration
-     */
     'Twilio' => [
-        'accountSid' => env('TWILIO_ACCTSID',null),
+        'accountSid' => env('TWILIO_ACCTSID', null),
         'authToken' => env('TWILIO_AUTHTOKEN', null),
-        'phone' => env('TWILIO_PHONENUM', null)
+        'phone' => env('TWILIO_PHONENUM', null),
     ],
 
-    /**
-     * Outbound webhook configuration. Each entry in `targets` gets a POST
-     * on qualifying calendar events (see WebhookComponent). `name` is only
-     * used for logging; `url` and `secret` are required.
-     *
-     * WEBHOOK_TARGETS is a JSON array, e.g.:
-     * [{"name":"member-portal","url":"https://portal.example/webhooks/calendar","secret":"changeme"}]
-     */
     'Webhooks' => [
         'targets' => json_decode(env('WEBHOOK_TARGETS', '[]'), true) ?: [],
-        'timeout' => (int) env('WEBHOOK_TIMEOUT', 3), // seconds, per-target
+        'timeout' => (int)env('WEBHOOK_TIMEOUT', 3), // seconds, per target
     ],
 
-    /**
-     * AD configuration
-     */
     'ActiveDirectory' => [
-        'account_suffix' => env('AD_SUFFIX','@dms.local'),
-        'admin_username' => env('AD_BIND_UN',''),
-        'admin_password' => env('AD_BIND_PW',''),
+        'account_suffix' => env('AD_SUFFIX', '@dms.local'),
+        'admin_username' => env('AD_BIND_UN', ''),
+        'admin_password' => env('AD_BIND_PW', ''),
         'username_field' => 'sAMAccountName',
         'use_tls' => filter_var(env('AD_USE_TLS', true), FILTER_VALIDATE_BOOLEAN),
-        'base_dn' => env('AD_BASE','DC=dev,DC=com'),
-        'domain_controllers' => [env('AD_SERVER','dms.local')]
+        'base_dn' => env('AD_BASE', 'DC=dev,DC=com'),
+        'domain_controllers' => [env('AD_SERVER', 'dms.local')],
     ],
 
-    /**
-     * OpenIDConnect configuration
-     * See details here:
-     * @link https://github.com/jumbojett/OpenID-Connect-PHP
-     */
     'OIDC' => [
         'client_id' => env('OIDC_CLIENT_ID', 'calendar'),
-        'client_secret' => env('OIDC_CLIENT_SECRET','dummy-secret-for-dev-mode'),
+        'client_secret' => env('OIDC_CLIENT_SECRET', 'dummy-secret-for-dev-mode'),
         'redirect_uri' => env('BASE_URL', 'http://localhost:8000') . '/users/oidc-callback',
-        'url_authorize' => env('OIDC_URL_AUTHORIZE','http://keycloak:8080/realms/DMS/'),
-        'url_access_token' => env('OIDC_URL_ACCESS_TOKEN','http://keycloak:8080/token'),
-        'url_resource_owner_details' => env('OIDC_URL_RESOURCE_OWNER','http://keycloak:8080/realms/DMS/protocol/openid-connect/userinfo')
+        'url_authorize' => env('OIDC_URL_AUTHORIZE', 'http://keycloak:8080/realms/DMS/'),
+        'url_access_token' => env('OIDC_URL_ACCESS_TOKEN', 'http://keycloak:8080/token'),
+        'url_resource_owner_details' => env('OIDC_URL_RESOURCE_OWNER', 'http://keycloak:8080/realms/DMS/protocol/openid-connect/userinfo'),
     ],
 ];

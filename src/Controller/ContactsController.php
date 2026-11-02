@@ -2,8 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
-use Cake\ORM\TableRegistry;
+use Cake\Event\EventInterface;
 
 /**
  * Contacts Controller
@@ -12,30 +11,20 @@ use Cake\ORM\TableRegistry;
  */
 class ContactsController extends AppController
 {
-    public $paginate = [
+    public array $paginate = [
         'maxLimit' => PHP_INT_MAX
     ];
 
-    public function beforeFilter(Event $event)
+    public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
     }
 
-    public function isAuthorized($user = null)
-    {
-        if ($this->request->getParam('action') == 'view') {
-            if (parent::inAdminstrativeGroup($user, 'Honorarium Admins') || parent::inAdminstrativeGroup($user, 'Financial Reporting')) {
-                return true;
-            }
-        }
-
-        return parent::isAuthorized($user);
-    }
 
     public function index()
     {
-        $this->Crud->on('beforePaginate', function (\Cake\Event\Event $event) {
-            $event->getSubject()->query->order(['name' => 'ASC']);
+        $this->Crud->on('beforePaginate', function (\Cake\Event\EventInterface $event) {
+            $event->getSubject()->query->orderBy(['name' => 'ASC']);
 
             $this->paginate['limit'] = 2147483647;
         });
@@ -51,18 +40,18 @@ class ContactsController extends AppController
      */
     public function view($id)
     {
-        $this->Crud->on('beforeFind', function (\Cake\Event\Event $event) {
-            $event->getSubject()->query = TableRegistry::get('Contacts')->find()
+        $this->Crud->on('beforeFind', function (\Cake\Event\EventInterface $event) {
+            $event->getSubject()->query = $this->fetchTable('Contacts')->find()
                 ->where(['Contacts.ad_username' => $event->getSubject()->id]);
         });
 
-        $attended = TableRegistry::get('Registrations')->find()
+        $attended = $this->fetchTable('Registrations')->find()
             ->where(['Registrations.ad_username' => $id])
             ->contain(['Events'])
             ->all();
         $this->set('attended', $attended);
 
-        $hosted = TableRegistry::get('Events')->find()
+        $hosted = $this->fetchTable('Events')->find()
             ->where(['Events.created_by' => $id])
             ->all();
         $this->set('hosted', $hosted);

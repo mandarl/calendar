@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $this->fetch('title') ?> | <?= __('Dallas Makerspace Calendar') ?></title>
+
+    <?php
+    echo $this->Html->charset();
+    echo $this->Html->meta('icon');
+    echo $this->Html->meta(['link' => '/favicon.ico', 'type' => 'image/x-icon', 'rel' => 'shortcut icon']);
+    echo $this->Html->css([
+        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+        'bootstrap/bootstrap.min.css',
+        'eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
+        'app.css'
+    ]);
+    echo $this->Html->script([
+        'jquery/jquery.min.js',
+        'bootstrap/bootstrap.min.js',
+        'moment/moment.min.js',
+        'eonasdan-bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
+        'app.js'
+    ]);
+
+    echo $this->fetch('meta');
+    echo $this->fetch('css');
+    ?>
+
+</head>
+<body<?= $this->getRequest()->getParam('action') == 'embed' ? ' class="embed"' : '' ?>>
+<?php
+if ($this->getRequest()->getParam('action') != 'embed') {
+    echo $this->element('header/default');
+}
+?>
+
+<div class="container<?= $this->getRequest()->getParam('action') == 'embed' ? '-fluid' : '' ?>">
+    <?= $this->Flash->render() ?>
+
+    <?= $this->fetch('content') ?>
+</div>
+
+<?php
+if ($this->getRequest()->getParam('action') != 'embed') {
+    echo $this->element('footer/default');
+}
+
+echo $this->fetch('script');
+?>
+</body>
+</html>

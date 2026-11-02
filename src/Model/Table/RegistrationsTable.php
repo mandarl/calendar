@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Registration;
 use Cake\Core\Configure;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -22,7 +23,7 @@ class RegistrationsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -41,26 +42,26 @@ class RegistrationsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->requirePresence('event_id', 'create')
-            ->notEmpty('event_id');
+            ->notEmptyString('event_id');
 
         $validator
             ->requirePresence('type', 'create')
-            ->notEmpty('type')
+            ->notEmptyString('type')
             ->add('type', 'inList', [
                 'rule' => ['inList', ['free', 'paid']]
             ]);
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->notEmptyString('name');
 
          $validator
             ->add('email', 'validFormat', [
@@ -68,7 +69,7 @@ class RegistrationsTable extends Table
                 'message' => 'The provided email is not valid.'
             ])
             ->requirePresence('email', 'create')
-            ->notEmpty('email')
+            ->notEmptyString('email')
             ->add('email', ['unique' => [
                 'rule' => ['validateUnique', ['scope' => 'event_id']],
                 'provider' => 'table',
@@ -76,10 +77,10 @@ class RegistrationsTable extends Table
             ]]);
 
         $validator
-            ->allowEmpty('phone');
+            ->allowEmptyString('phone');
 
         $validator
-            ->allowEmpty('ad_username')
+            ->allowEmptyString('ad_username')
             ->add('ad_username', ['unique' => [
                 'rule' => ['validateUnique', ['scope' => 'event_id']], 'provider' => 'table']
             ]);
@@ -87,30 +88,30 @@ class RegistrationsTable extends Table
         $validator
             ->boolean('send_text')
             ->requirePresence('send_text', 'create')
-            ->notEmpty('send_text');
+            ->notEmptyString('send_text');
 
         $validator
             ->alphaNumeric('edit_key')
             ->requirePresence('edit_key', 'create')
-            ->notEmpty('edit_key');
+            ->notEmptyString('edit_key');
 
         $validator
             ->requirePresence('status', 'create')
-            ->notEmpty('status')
+            ->notEmptyString('status')
             ->add('status', 'inList', [
                 'rule' => ['inList', ['confirmed', 'cancelled', 'pending']]
             ]);
 
         $validator
-            ->allowEmpty('attended');
+            ->allowEmptyString('attended');
 
         $validator
             ->boolean('attended')
-            ->allowEmpty('attended');
+            ->allowEmptyString('attended');
 
         $validator
             ->boolean('ad_assigned')
-            ->allowEmpty('ad_assigned');
+            ->allowEmptyString('ad_assigned');
 
         return $validator;
     }
@@ -122,7 +123,7 @@ class RegistrationsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['event_id'], 'Events'));
 
@@ -135,22 +136,17 @@ class RegistrationsTable extends Table
             $reg = $this->get($id);
 
             if ($reg->transaction_id) {
-                \Braintree_Configuration::environment(Configure::read('Braintree.environment'));
-                \Braintree_Configuration::merchantId(Configure::read('Braintree.merchantId'));
-                \Braintree_Configuration::publicKey(Configure::read('Braintree.publicKey'));
-                \Braintree_Configuration::privateKey(Configure::read('Braintree.privateKey'));
+                // Slice R kit port (merged): void when still submitted for
+                // settlement, otherwise refund; same semantics as the Cake 3
+                // Braintree_* statics this replaces, via Dms\Kit\Payments.
+                $braintree = \Dms\Kit\Payments\BraintreePayments::fromConfig(new \Dms\Kit\Payments\BraintreeConfig(
+                    (string)Configure::read('Braintree.environment'),
+                    (string)Configure::read('Braintree.merchantId'),
+                    (string)Configure::read('Braintree.publicKey'),
+                    (string)Configure::read('Braintree.privateKey')
+                ));
 
-                $transaction = \Braintree_Transaction::find($reg->transaction_id);
-
-                if ($transaction->status == 'submitted_for_settlement') {
-                    $result = \Braintree_Transaction::void($reg->transaction_id);
-
-                    return $result->success;
-                }
-
-                $result = \Braintree_Transaction::refund($reg->transaction_id);
-
-                return $result->success;
+                return $braintree->voidOrRefund($reg->transaction_id);
             }
 
             return true;

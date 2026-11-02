@@ -1,35 +1,26 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Auth\OpenIDConnectService;
+use App\Auth\KitFactory;
+use App\Middleware\UnauthorizedHandler;
+use App\Policy\RequestPolicy;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Log\Log;
-use Cake\ORM\TableRegistry;
-use LdapRecord\Container;
-use LdapRecord\Models\ActiveDirectory\User as AdUser;
 
 /**
  * Application Controller
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
+ * Authentication (LDAP form login, session identity) is done by the Authentication plugin; the per-controller group
+ * rules of the old isAuthorized() live in App\Policy\RequestPolicy and are enforced for logged-in users on every
+ * non-public action (see authorizeRequest()).
  *
- * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
+ * @property \Crud\Controller\Component\CrudComponent $Crud
  */
 class AppController extends Controller
 {
@@ -38,103 +29,142 @@ class AppController extends Controller
     /**
      * Initialization hook method.
      *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
-        $auth = [
-            'Ad' => [
-                'config' => [
-                    'username_field' => Configure::read('ActiveDirectory.username_field'),
-                    'base_dn' => Configure::read('ActiveDirectory.base_dn'),
-                    'domain_controllers' => Configure::read('ActiveDirectory.domain_controllers'),
-                    'admin_username' => Configure::read('ActiveDirectory.admin_username'),
-                    'admin_password' => Configure::read('ActiveDirectory.admin_password'),
-                    'account_suffix' => Configure::read('ActiveDirectory.account_suffix'),
-                    'use_tls' => Configure::read('ActiveDirectory.use_tls')
-                ]
-            ]
-        ];
 
-        $this->loadComponent('Auth', [
-            'authenticate' => $auth,
-            'authorize' => ['Controller'],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'loginRedirect' => [
-                'controller' => 'Events',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Events',
-                'action' => 'index'
-            ]
+        $this->loadComponent('Authentication.Authentication', [
+            'logoutRedirect' => ['controller' => 'Events', 'action' => 'index'],
         ]);
+        $this->loadComponent('Authorization.Authorization');
         $this->loadComponent('Crud.Crud', [
             'actions' => [
                 'Crud.Index',
                 'Crud.Add',
                 'Crud.Edit',
                 'Crud.View',
-                'Crud.Delete'
-            ]
+                'Crud.Delete',
+            ],
         ]);
         $this->loadComponent('Flash');
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Security');
+        // Replaces SecurityComponent (form tampering protection). CSRF is the CsrfProtectionMiddleware.
+        $this->loadComponent('FormProtection');
+        // RequestHandler is gone in Cake 5 (JSON bodies: BodyParserMiddleware; isAjax: $request->is('ajax')).
 
         // Disables CRUD's default setFlash helper
-        $this->getEventManager()->on('Crud.setFlash', function (Event $event) {
+        $this->getEventManager()->on('Crud.setFlash', function (EventInterface $event) {
             $event->stopPropagation();
         });
 
         $this->Crud->addListener('relatedModels', 'Crud.RelatedModels');
 
         $this->loadComponent('Email');
+
+        // Around the Authentication component's own Controller.startup identity check (priority 10):
+        // before it, queue the "not authorized" flash an anonymous visitor got in Cake 3; after it, authorize.
+        $this->getEventManager()->on('Controller.startup', ['priority' => 5], function (EventInterface $event) {
+            $this->flashIfAnonymous();
+        });
+        $this->getEventManager()->on('Controller.startup', ['priority' => 20], function (EventInterface $event) {
+            return $this->authorizeRequest();
+        });
     }
 
-    public function customLog($description) {
-        $user = $this->Auth->user() != null ? $this->Auth->user()['samaccountname'] : null;
+    /**
+     * Anonymous visitor on a non-public action: Cake 3 queued the authError flash before redirecting to the login.
+     *
+     * @return void
+     */
+    protected function flashIfAnonymous(): void
+    {
+        $request = $this->getRequest();
+        if (
+            !$request->getAttribute('identity')
+            && !in_array($request->getParam('action'), $this->Authentication->getUnauthenticatedActions(), true)
+            && !$request->is('ajax')
+        ) {
+            UnauthorizedHandler::flash($request);
+        }
+    }
+
+    /**
+     * Run the request policy for a logged-in user on a non-public action. A denial throws ForbiddenException, which
+     * AuthorizationMiddleware turns into the flash + redirect of UnauthorizedHandler.
+     *
+     * @return null
+     */
+    protected function authorizeRequest()
+    {
+        $request = $this->getRequest();
+        if (
+            $request->getAttribute('identity')
+            && !in_array($request->getParam('action'), $this->Authentication->getUnauthenticatedActions(), true)
+        ) {
+            $this->Authorization->authorize($request, 'access');
+        }
+
+        return null;
+    }
+
+    /**
+     * The logged-in user's data (what AuthComponent::user() used to return), or null for an anonymous visitor.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function currentUser(): ?array
+    {
+        return RequestPolicy::userFromIdentity($this->getRequest()->getAttribute('identity'));
+    }
+
+    /**
+     * Shortcut for AuthComponent::user('samaccountname').
+     *
+     * @return string|null
+     */
+    public function currentUsername(): ?string
+    {
+        return $this->currentUser()['samaccountname'] ?? null;
+    }
+
+    public function customLog($description)
+    {
+        $user = $this->currentUsername();
         $action = $this->request->getParam('action');
 
         // don't log some stuff
-        if( is_null($user) ||
+        if (
+            is_null($user) ||
             $action === 'index' ||
-            $action === 'view' ){
-
+            $action === 'view'
+        ) {
             return;
         }
 
         // log this
-        $this->logs = TableRegistry::getTableLocator()->get('Logs');
-        $log = $this->logs->newEntity();
-        $log->description   = $description;
-        $log->user          = $user;
-        $log->date_time     = date('Y-m-d H:i:s');
-        $log->ip_address    = $_SERVER['REMOTE_ADDR'];
-        $log->url           = $_SERVER['REQUEST_URI'];
-        $log->controller    = $this->request->getParam('controller');
-        $log->action        = $action;
+        $logs = $this->fetchTable('Logs');
+        $log = $logs->newEmptyEntity();
+        $log->description = $description;
+        $log->user = $user;
+        $log->date_time = date('Y-m-d H:i:s');
+        $log->ip_address = $_SERVER['REMOTE_ADDR'];
+        $log->url = $_SERVER['REQUEST_URI'];
+        $log->controller = $this->request->getParam('controller');
+        $log->action = $action;
 
-        $this->logs->save($log);
+        $logs->save($log);
     }
 
     /**
      * Before render callback.
      *
-     * @param \Cake\Event\Event $event The beforeRender event.
+     * @param \Cake\Event\EventInterface $event The beforeRender event.
      * @return void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(EventInterface $event)
     {
-        $this->customLog('Viewed ' . $_SERVER[ 'REQUEST_URI' ]);
+        $this->customLog('Viewed ' . $_SERVER['REQUEST_URI']);
 
         $isAuthorized = [
             'canManageCategories' => 0,
@@ -147,12 +177,14 @@ class AppController extends Controller
             'canManageHonoraria' => 0,
             'canManageW9s' => 0,
             'canDisableHonoraria' => 0,
-            'canManageFinanceReports' => 0
+            'canManageFinanceReports' => 0,
         ];
 
         $hasMenu = ['hasAdminMenu' => 0, 'hasFinancialMenu' => 0, 'hasCalendarAdminMenu' => 0];
 
-        if ($this->Auth->user()) {
+        $user = $this->currentUser();
+
+        if ($user) {
             $authorizations = [
                 'Calendar Admins' => [
                     'canManageCategories',
@@ -162,23 +194,23 @@ class AppController extends Controller
                     'canManageEvents',
                     'canManagePreqequisites',
                     'canManageRooms',
-                    'canManageTools'
+                    'canManageTools',
                 ],
                 'Honorarium Admins' => [
-                    'canManageHonoraria'
+                    'canManageHonoraria',
                 ],
                 'Financial Reporting' => [
                     'canManageW9s',
                     'canManageFinanceReports',
-                    'canExportHonoraria'
+                    'canExportHonoraria',
                 ],
                 'Calendar Super Admins' => [
-                    'canDisableHonoraria'
+                    'canDisableHonoraria',
                 ],
             ];
 
             foreach ($authorizations as $group => $authorizedActions) {
-                if ($this->inAdminstrativeGroup($this->Auth->user(), $group)) {
+                if ($this->inAdminstrativeGroup($user, $group)) {
                     $allow = true;
                 } else {
                     $allow = false;
@@ -190,44 +222,34 @@ class AppController extends Controller
             }
         }
 
-        if ($this->inAdminstrativeGroup($this->Auth->user(), 'Calendar Admins')) {
+        if ($this->inAdminstrativeGroup($user, 'Calendar Admins')) {
             $hasMenu['hasAdminMenu'] = 1;
         }
 
-        if ($this->inAdminstrativeGroup($this->Auth->user(), 'Calendar Super Admins')) {
+        if ($this->inAdminstrativeGroup($user, 'Calendar Super Admins')) {
             $hasMenu['hasCalendarAdminMenu'] = 1;
         }
 
-        if ($this->inAdminstrativeGroup($this->Auth->user(), 'Financial Reporting')) {
+        if ($this->inAdminstrativeGroup($user, 'Financial Reporting')) {
             $hasMenu['hasFinancialMenu'] = 1;
         }
 
         $this->set($isAuthorized);
         $this->set($hasMenu);
-        $this->set('isDevelopment', Configure::read("isDevelopment"));
+        $this->set('isDevelopment', Configure::read('isDevelopment'));
+        // The templates read the logged-in user from here (was Session Auth.User).
+        $this->set('authUser', $user);
 
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->getType(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
+        // Cake 3 set `_serialize` => true for json/xml responses; Cake 5 uses the `serialize` view option.
+        if (in_array($this->response->getType(), ['application/json', 'application/xml'])) {
+            $this->viewBuilder()->setOption('serialize', true);
         }
     }
 
     /**
-     * Check if the provided user is authorized for the request.
-     *
-     * General purpose authorization for calendar admins (AD: Calendar Admins). Not all controllers call
-     * parent::isAuthorized. Controllers which have granular adminstrative permissions should not call the
-     * app-level auth method so that only specific admins have access to their allowed actions.
-     *
-     * These include:
-     *   - Honorarium Admins having access to honoraria rejections while Calendar Admins don't have this
-     *     power innately.
-     *   - Financial Reporting users are the only users which have access to W9 data and financial data
-     *     exports.
-     *
-     * Most controllers will call this parent method. Call it unless you have a reason (such as those above)
-     * not to.
+     * General purpose authorization for calendar admins (AD: Calendar Admins). Same meaning as the Cake 3
+     * AppController::isAuthorized(); the controllers call it as `parent::isAuthorized()` for "is a Calendar Admin".
+     * The per-controller request rules that overrode it now live in App\Policy\RequestPolicy.
      *
      * @param array|null $user The user to check the authorization of.
      * @return bool True if $user is authorized, otherwise false
@@ -246,7 +268,7 @@ class AppController extends Controller
      */
     public function currentUserInGroup($group, $forceRefreshGroups = false)
     {
-        $user = $this->Auth->user();
+        $user = $this->currentUser();
         if ($this->inAdminstrativeGroup($user, $group)) {
             return true;
         }
@@ -254,8 +276,7 @@ class AppController extends Controller
             return false;
         }
         if (!empty($user['ssologin'])) {
-            $oidc = new OpenIDConnectService();
-            $groups = $oidc->updateGroups($this->getRequest()->getSession());
+            $groups = KitFactory::oidc()->updateGroups($this->getRequest()->getSession()->read('oidc_token'));
         } else {
             $groups = $this->_refreshAdGroups($user);
         }
@@ -263,14 +284,13 @@ class AppController extends Controller
             return false;
         }
         $user['groups'] = $groups;
+
         return $this->inAdminstrativeGroup($user, $group);
     }
 
     /**
-     * Re-query Active Directory for a user's current group memberships using
-     * the service-account bind (the user's password is not available
-     * post-login). Returns null on failure so callers can fall back to the
-     * cached check.
+     * Re-query Active Directory for a user's current group memberships using the service-account bind (the user's
+     * password is not available post-login). Returns null on failure so callers can fall back to the cached check.
      *
      * @param array $user The auth session user.
      * @return array|null Group cn values, or null if the lookup failed.
@@ -280,50 +300,19 @@ class AppController extends Controller
         if (empty($user['samaccountname'])) {
             return null;
         }
-        try {
-            $cfg = Configure::read('ActiveDirectory');
-            $connection = new \LdapRecord\Connection([
-                'hosts' => $cfg['domain_controllers'],
-                'base_dn' => $cfg['base_dn'],
-                'username' => $cfg['admin_username'],
-                'password' => $cfg['admin_password'],
-                'use_tls' => $cfg['use_tls'],
-                'version' => 3,
-                'options' => [
-                    LDAP_OPT_X_TLS_REQUIRE_CERT => LDAP_OPT_X_TLS_NEVER,
-                ],
-            ]);
-            $connection->connect();
-            Container::addConnection($connection);
 
-            $adUser = AdUser::findByOrFail($cfg['username_field'], $user['samaccountname']);
-            $groups = [];
-            foreach ($adUser->groups()->get() as $g) {
-                $groups[] = $g->cn[0];
-            }
-            return $groups;
-        } catch (\Exception $e) {
-            Log::warning('AD group refresh failed for ' . $user['samaccountname'] . ': ' . $e->getMessage());
-            return null;
-        }
+        return KitFactory::directory()->groupsFor($user['samaccountname']);
     }
 
     /**
      * Check if the provided user is a member of a specified group.
      *
-     * @param array $user The user to check the authorization of.
+     * @param array|null $user The user to check the authorization of.
      * @param string $group The AD group to check user membership against.
      * @return bool True if $user is authorized, otherwise false
      */
     public function inAdminstrativeGroup($user, $group)
     {
-        if ($user
-            && array_key_exists('groups', $user)
-            && is_array($user['groups'])
-            && in_array($group, $user['groups'])) {
-            return true;
-        }
-
-        return false;
+        return RequestPolicy::inGroup($user, $group);
     }
 }

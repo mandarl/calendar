@@ -1,0 +1,968 @@
+{
+ "sendEventRejected ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Rejection: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been rejected.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Reason: </b>No additional information given. <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventRejected ev1050 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Rejection: Fixture: Long Reason",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been rejected.<br/><br/>\n    <b>Event: </b>Fixture: Long Reason <br/>\n<b>Reason: </b>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventRejected ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Rejection: Fixture: Cron Ended Approved (paid, ...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been rejected.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Reason: </b>No additional information given. <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventRejected ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Rejection: Café Über 日本語 Fixture: Cron Start Re...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been rejected.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Reason: </b>No additional information given. <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventSubmitted ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Submission: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    You have submitted the following event to the DMS Calendar. <br />Please be aware that it may take a few days to get approved and be publicly visible. <br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Submission Time: </b>Friday October 2, 7:30AM<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventSubmitted ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Submission: Fixture: Cron Ended Approved (paid,...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/><br/>\n    You have submitted the following event to the DMS Calendar. <br />Please be aware that it may take a few days to get approved and be publicly visible. <br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Submission Time: </b>Tuesday June 30, 7:00PM<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventSubmitted ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Submission: Café Über 日本語 Fixture: Cron Start R...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    You have submitted the following event to the DMS Calendar. <br />Please be aware that it may take a few days to get approved and be publicly visible. <br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Submission Time: </b>Thursday December 31, 12:00AM<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventApproved ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Approval: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been approved.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1001\">https://calendar.dallasmakerspace.org/events/view/1001</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventApproved ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Approval: Fixture: Cron Ended Approved (paid, h...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been approved.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1019\">https://calendar.dallasmakerspace.org/events/view/1019</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventApproved ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Approval: Café Über 日本語 Fixture: Cron Start Rem...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/><br/>\n    The following event you submitted to the Dallas Makerspace Calendar has been approved.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1032\">https://calendar.dallasmakerspace.org/events/view/1032</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventCancelled ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Fixture: Free Open Class has been Cance...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    An event that you RSVP'd for has been cancelled.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/><br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventCancelled ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Fixture: Cron Ended Approved (paid, has...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    An event that you RSVP'd for has been cancelled.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/><br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventCancelled ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Café Über 日本語 Fixture: Cron Start Remin...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    An event that you RSVP'd for has been cancelled.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/><br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventStarting ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Fixture: Free Open Class Starts Soon",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    This is a reminder that you have an event starting soon at Dallas Makerspace.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1001\">https://calendar.dallasmakerspace.org/events/view/1001</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventStarting ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Fixture: Cron Ended Approved (paid, has pen...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    This is a reminder that you have an event starting soon at Dallas Makerspace.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1019\">https://calendar.dallasmakerspace.org/events/view/1019</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendEventStarting ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Café Über 日本語 Fixture: Cron Start Reminder ...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    This is a reminder that you have an event starting soon at Dallas Makerspace.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/><br/>\n    Full event details are available at <a href=\"https://calendar.dallasmakerspace.org/events/view/1032\">https://calendar.dallasmakerspace.org/events/view/1032</a>.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendUnapprovedRegistrationCancelled ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Events: Fixture: Free Open Class Registration Cancelled",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    Your registration for the following event was cancelled automatically by our system.<br/> <br/>\n    <b>Event: </b>Fixture: Free Open Class <br/> <br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendUnapprovedRegistrationCancelled ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Events: Fixture: Cron Ended Approved (paid, has pendi...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    Your registration for the following event was cancelled automatically by our system.<br/> <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/> <br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendUnapprovedRegistrationCancelled ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Events: Café Über 日本語 Fixture: Cron Start Reminder Du...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    Your registration for the following event was cancelled automatically by our system.<br/> <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/> <br/>\n    If you paid to register for this event then a refund has been submitted for processing.<br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationReminder ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Fixture: Free Open Class Cancellation Cutof...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    This is a reminder that you don't have much time left to cancel your RSVP for the\n    following event. If you are still planning on attending you can ignore this reminder.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationReminder ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Fixture: Cron Ended Approved (paid, has pen...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    This is a reminder that you don't have much time left to cancel your RSVP for the\n    following event. If you are still planning on attending you can ignore this reminder.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationReminder ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Reminder: Café Über 日本語 Fixture: Cron Start Reminder ...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    This is a reminder that you don't have much time left to cancel your RSVP for the\n    following event. If you are still planning on attending you can ignore this reminder.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationConfirmation ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Confirmation: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    You're confirmed for an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationConfirmation ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Confirmation: Fixture: Cron Ended Approved (pai...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    You're confirmed for an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationConfirmation ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Confirmation: Café Über 日本語 Fixture: Cron Start...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    You're confirmed for an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationPending ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Pending: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/><br/>\n    Your registration has been submitted for an event. The event host will need to accept\n    your RSVP before you will be confirmed for the event. A follow-up notification will be\n    sent once your registration is approved or rejected.<br/><br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationPending ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Pending: Fixture: Cron Ended Approved (paid, ha...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/><br/>\n    Your registration has been submitted for an event. The event host will need to accept\n    your RSVP before you will be confirmed for the event. A follow-up notification will be\n    sent once your registration is approved or rejected.<br/><br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationPending ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Pending: Café Über 日本語 Fixture: Cron Start Remi...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/><br/>\n    Your registration has been submitted for an event. The event host will need to accept\n    your RSVP before you will be confirmed for the event. A follow-up notification will be\n    sent once your registration is approved or rejected.<br/><br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRequested ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Attendance Request: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has requested to attend your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class<br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 01 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3001@example.test\">attendee.3001@example.test</a><br/>\n    <br/>\n    Approve or deny this request at your earliest convenience at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1001\">https://calendar.dallasmakerspace.org/events/view/1001</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRequested ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Attendance Request: Fixture: Cron Ended Approved (pai...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/>\n    <br/>\n    Someone has requested to attend your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg)<br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM<br/><br/>\n    <b>Attendee: </b>O'Brien \"Q\" <x> & Sons é <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3012@example.test\">attendee.3012@example.test</a><br/>\n    <br/>\n    Approve or deny this request at your earliest convenience at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1019\">https://calendar.dallasmakerspace.org/events/view/1019</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRequested ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Attendance Request: Café Über 日本語 Fixture: Cron Start...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has requested to attend your event.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name<br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 03 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3003@example.test\">attendee.3003@example.test</a><br/>\n    <br/>\n    Approve or deny this request at your earliest convenience at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1032\">https://calendar.dallasmakerspace.org/events/view/1032</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationToInstructor ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS New Registration: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has registered for  your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class<br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 01 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3001@example.test\">attendee.3001@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1001\">https://calendar.dallasmakerspace.org/events/view/1001</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationToInstructor ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS New Registration: Fixture: Cron Ended Approved (paid,...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/>\n    <br/>\n    Someone has registered for  your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg)<br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM<br/><br/>\n    <b>Attendee: </b>O'Brien \"Q\" <x> & Sons é <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3012@example.test\">attendee.3012@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1019\">https://calendar.dallasmakerspace.org/events/view/1019</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationToInstructor ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS New Registration: Café Über 日本語 Fixture: Cron Start R...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has registered for  your event.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name<br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 03 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3003@example.test\">attendee.3003@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1032\">https://calendar.dallasmakerspace.org/events/view/1032</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationToInstructor ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Cancelled Registration: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has cancelled their attendance to your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class<br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 01 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3001@example.test\">attendee.3001@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1001\">https://calendar.dallasmakerspace.org/events/view/1001</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationToInstructor ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Cancelled Registration: Fixture: Cron Ended Approved ...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructör B & <Co>,<br/>\n    <br/>\n    Someone has cancelled their attendance to your event.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg)<br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM<br/><br/>\n    <b>Attendee: </b>O'Brien \"Q\" <x> & Sons é <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3012@example.test\">attendee.3012@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1019\">https://calendar.dallasmakerspace.org/events/view/1019</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test =?UTF-8?B?SW5zdHJ1Y3TDtnIgQiAmIDxDbz4=?=",
+      "email": "instructor.b@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendCancellationToInstructor ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Cancelled Registration: Café Über 日本語 Fixture: Cron S...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Instructor A,<br/>\n    <br/>\n    Someone has cancelled their attendance to your event.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name<br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM<br/><br/>\n    <b>Attendee: </b>Test Attendee 03 <br/>\n    <b>Attendee Email: </b><a href=\"mailto:attendee.3003@example.test\">attendee.3003@example.test</a><br/>\n    <br/>\n    View your event at <a\n        href=\"https://calendar.dallasmakerspace.org/events/view/1032\">https://calendar.dallasmakerspace.org/events/view/1032</a>\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Instructor A",
+      "email": "instructor.a@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationApproved ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance approved for Fixture: Free O...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/>\n    <br>\n    You've been approved to attend an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <b>Time: </b>Tuesday November 3, 6:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3001?edit_key=edit-key-3001\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationApproved ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance approved for Fixture: Cron E...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/>\n    <br>\n    You've been approved to attend an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <b>Time: </b>Wednesday July 15, 12:00PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3012?edit_key=a&b=c d\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationApproved ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance approved for Café Über 日本語 F...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/>\n    <br>\n    You've been approved to attend an event! Keep this email for your records.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <b>Time: </b>Wednesday December 30, 11:45PM <br/>\n    <br/>\n    If you need to review or cancel your RSVP you can do so <a\n        href=\"https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\">here</a>.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team\n    <br><br><br>\n    <small>\n        If the above link doesn't work, try copying and pasting this into your browser:\n        https://calendar.dallasmakerspace.org/registrations/view/3003?edit_key=edit-key-3003\n    </small>        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRejected ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance Rejected for Fixture: Free O...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled due to the event organizer\n    rejecting your registration.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class<br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted for\n    processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRejected ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance Rejected for Fixture: Cron E...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled due to the event organizer\n    rejecting your registration.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg)<br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted for\n    processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationRejected ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Update: Attendance Rejected for Café Über 日本語 F...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled due to the event organizer\n    rejecting your registration.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name<br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted for\n    processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationCancelled ev1001 reg3001 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Cancellation: Fixture: Free Open Class",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 01,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Free Open Class <br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted\n    for processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 01",
+      "email": "attendee.3001@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationCancelled ev1019 reg3012 ctU": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Cancellation: Fixture: Cron Ended Approved (pai...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello O'Brien \"Q\" <x> & Sons é,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled.<br/>\n    <br/>\n    <b>Event: </b>Fixture: Cron Ended Approved (paid, has pending reg) <br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted\n    for processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "O'Brien \"Q\" <x> & Sons =?UTF-8?B?w6k=?=",
+      "email": "attendee.3012@example.test"
+     }
+    }
+   ]
+  }
+ ],
+ "sendRegistrationCancelled ev1032 reg3003 ctA": [
+  {
+   "content": {
+    "from": {
+     "name": "Dallas Makerspace",
+     "email": "admin@dallasmakerspace.org"
+    },
+    "subject": "DMS Event Cancellation: Café Über 日本語 Fixture: Cron Start...",
+    "html": "    <!doctype html>\n    <html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n        <title>DMS Calendar</title>\n\n        <style>\n            body {-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;box-sizing: border-box;margin: 0;height: 100%;width: 100% !important;font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;font-size: 20px;line-height: 25px;background-color: white;color: #333;}  .content {margin-left: auto;margin-right: auto;max-width: 1000px;padding: 30px;}  .content .callout-center {text-align: center;width: 100%;}  .mb-20px {margin-bottom: 20px;}  .mt-20px {margin-top: 20px;}  .content .callout-center img {width: 50%;}  .bordered {background-color: #f6f6f6;padding: 20px;border-radius: 10px;}\n        </style>\n    </head>\n    <body>\n    <div class=\"content\">\n        <div class=\"callout-center mb-20px\">\n            <img src=\"https://dallasmakerspace.org/wp-content/uploads/56_wide2.png\" alt=\"Dallas Makerspace Logo\"/>\n        </div>\n        <div class=\"bordered\">    Hello Test Attendee 03,<br/>\n    <br/>\n    Your RSVP for the following event has been cancelled.<br/>\n    <br/>\n    <b>Event: </b>Café Über 日本語 Fixture: Cron Start Reminder Due With A Very Long Name <br/>\n    <br/>\n    If you paid to register for this event then a refund has been submitted\n    for processing.\n    <br/><br/>\n    Regards,<br/>\n    Dallas Makerspace Team        </div>\n        <div class=\"callout-center mt-20px\">\n            Please do not reply to this email with questions regarding this event, for further assistance use our <a href=\"https://talk.dallasmakerspace.org\">Talk Forum</a>.\n            <br><br/>\n            &copy; 2026 Dallas Makerspace\n        </div>\n    </div>\n    </body>\n    </html>\n",
+    "text": ""
+   },
+   "recipients": [
+    {
+     "address": {
+      "name": "Test Attendee 03",
+      "email": "attendee.3003@example.test"
+     }
+    }
+   ]
+  }
+ ]
+}

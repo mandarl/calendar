@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Model\Entity;
 
-use Cake\I18n\Time;
+use Cake\I18n\DateTime;
 use Cake\ORM\Entity;
 
 /**
@@ -60,7 +62,7 @@ class Event extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         '*' => true,
         'id' => false,
     ];
@@ -68,12 +70,12 @@ class Event extends Entity
     protected function _getCancellationDays()
     {
         if ($this->event_start && $this->attendee_cancellation) {
-            $startTime = Time::createFromFormat(
+            $startTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->event_start,
                 'UTC'
             );
-            $cancellationTime = Time::createFromFormat(
+            $cancellationTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->attendee_cancellation,
                 'UTC'
@@ -88,12 +90,12 @@ class Event extends Entity
     protected function _getSetupTime()
     {
         if ($this->event_start && $this->booking_start) {
-            $startTime = Time::createFromFormat(
+            $startTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->event_start,
                 'UTC'
             );
-            $setupTime = Time::createFromFormat(
+            $setupTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->booking_start,
                 'UTC'
@@ -108,12 +110,12 @@ class Event extends Entity
     protected function _getTeardownTime()
     {
         if ($this->event_start && $this->booking_end) {
-            $startTime = Time::createFromFormat(
+            $startTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->event_start,
                 'UTC'
             );
-            $teardownTime = Time::createFromFormat(
+            $teardownTime = DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->booking_end,
                 'UTC'

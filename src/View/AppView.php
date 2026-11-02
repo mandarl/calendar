@@ -1,46 +1,55 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     3.0.0
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
+declare(strict_types=1);
+
 namespace App\View;
 
-use BootstrapUI\View\UIView;
+use App\View\Helper\FormHelper;
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\PaginatorHelper;
+use App\View\Helper\TimeHelper;
+use Cake\I18n\DateTime;
+use Cake\View\View;
 
 /**
  * Application View
  *
- * Your application’s default view class
+ * Bootstrap 3.3.6 look: the Form and Paginator helpers are local ports of the BootstrapUI 1.x helpers (see the
+ * class comments), and the flash messages use the Bootstrap alert elements in templates/element/flash/.
  *
- * @link http://book.cakephp.org/3.0/en/views.html#the-app-view
+ * @link https://book.cakephp.org/5/en/views.html#the-app-view
  */
-class AppView extends UIView
+class AppView extends View
 {
-
     /**
      * Initialization hook method.
      *
-     * Use this method to add common initialization code like loading helpers.
-     *
-     * e.g. `$this->loadHelper('Html');`
-     *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
+
+        // Cake 3 rendered DateTime::__toString() via the old ICU default ("M/d/yy, h:mm a", plain
+        // space, no zero-padding). The Cake 5 image's newer ICU renders the same default with a
+        // narrow no-break space (U+202F) before AM/PM, which shows up wherever a template prints a
+        // date with h($date) (e.g. Honoraria index, Events submitted "Submitted on:"). Pin the
+        // explicit format that reproduces the Cake 3 output byte for byte (verified by differential
+        // probe against the Cake 3 image on 5 instants incl. midnight/noon/single-digit dates).
+        // If the lead prefers it app-wide rather than view-only, the same one-liner belongs in
+        // config/bootstrap.php instead.
+        DateTime::setToStringFormat('M/d/yy, h:mm a');
+
         $this->setLayout('default');
-        $this->loadHelper('Html', ['className' => 'BootstrapUI.Html']);
-        $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
-        $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
-        $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
+        // Cake 3 printed void elements XHTML-style (`<meta ... />`); keep that markup so pages stay byte-comparable with the baseline.
+        $this->loadHelper('Html', ['className' => HtmlHelper::class, 'templates' => [
+            'meta' => '<meta{{attrs}}/>',
+            'metalink' => '<link href="{{url}}"{{attrs}}/>',
+            'image' => '<img src="{{url}}"{{attrs}}/>',
+            'css' => '<link rel="{{rel}}" href="{{url}}"{{attrs}}/>',
+            'charset' => '<meta charset="{{charset}}"/>',
+        ]]);
+        $this->loadHelper('Form', ['className' => FormHelper::class]);
+        $this->loadHelper('Paginator', ['className' => PaginatorHelper::class]);
+        $this->loadHelper('Time', ['className' => TimeHelper::class]);
     }
 }

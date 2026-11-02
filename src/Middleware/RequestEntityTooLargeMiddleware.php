@@ -1,10 +1,14 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Middleware;
 
 use Cake\Http\Exception\HttpException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UploadedFileInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Rejects requests that PHP couldn't fully parse for size reasons, so the
@@ -17,12 +21,12 @@ use Psr\Http\Message\UploadedFileInterface;
  *    UPLOAD_ERR_INI_SIZE and lets the rest of the request through.
  *    Detected by walking the parsed uploaded files.
  */
-class RequestEntityTooLargeMiddleware
+class RequestEntityTooLargeMiddleware implements MiddlewareInterface
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (!in_array($request->getMethod(), ['POST', 'PUT', 'PATCH'], true)) {
-            return $next($request, $response);
+            return $handler->handle($request);
         }
 
         $contentLength = (int)$request->getHeaderLine('Content-Length');
@@ -61,6 +65,6 @@ class RequestEntityTooLargeMiddleware
             );
         }
 
-        return $next($request, $response);
+        return $handler->handle($request);
     }
 }

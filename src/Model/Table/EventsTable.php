@@ -1,13 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Event;
-use App\Model\Validation\RoomDateValidator;
-use Cake\I18n\Time;
-use Cake\ORM\Query;
+use Cake\I18n\DateTime;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Log\Log;
 
@@ -28,6 +28,7 @@ use Cake\Log\Log;
  */
 class EventsTable extends Table
 {
+    use LocatorAwareTrait;
 
     /**
      * Initialize method
@@ -35,7 +36,21 @@ class EventsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    /**
+     * Cake 3 returned DECIMAL columns as floats (a cost of 5.00 printed as `5`, which the templates rely on:
+     * `"$" . $event->cost . ".00"`). Cake 5 returns the exact decimal string ("5.00"), so map `cost` back to float.
+     *
+     * @return \Cake\Database\Schema\TableSchemaInterface
+     */
+    public function getSchema(): \Cake\Database\Schema\TableSchemaInterface
+    {
+        $schema = parent::getSchema();
+        $schema->setColumnType('cost', 'float');
+
+        return $schema;
+    }
+
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -84,49 +99,50 @@ class EventsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->notEmptyString('name');
 
         $validator
             ->requirePresence('short_description', 'create')
-            ->notEmpty('short_description');
+            ->notEmptyString('short_description');
 
         $validator
             ->requirePresence('long_description', 'create')
-            ->allowEmpty('long_description');
+            ->allowEmptyString('long_description');
 
         $validator
-            ->allowEmpty('advisories');
+            ->allowEmptyString('advisories');
 
         $validator
             ->dateTime('event_start')
             ->requirePresence('event_start', 'create')
-            ->notEmpty('event_start')
+            ->notEmptyString('event_start')
             ->add('event_start', 'custom', [
                 'rule' => function ($value, $context) {
-                    $this->Configurations = TableRegistry::get('Configurations');
-                    $config = $this->Configurations->find('list')->toArray();
+                    $config = $this->fetchTable('Configurations')->find('list')->toArray();
 
-                    $startTime = new Time($value);
+                    $startTime = new DateTime($value);
 
-                    if ($context['data']['request_honorarium']) {
-                        if ($startTime->isWithinNext($config[3])) {
+                    // Cake 3's Time::isWithinNext() turned a bare number into "N days"; Chronos 3 would take "+N" as a
+                    // timezone offset, so the unit is spelled out here.
+                    if (!empty($context['data']['request_honorarium'])) {
+                        if ($startTime->isWithinNext($config[3] . ' days')) {
                             return 'The start date must be at least ' . $config[3] . ' days out when requesting honorarium.';
                         }
                     } else {
-                        if ($startTime->isWithinNext($config[4])) {
+                        if ($startTime->isWithinNext($config[4] . ' days')) {
                             return 'Events must be scheduled at least ' . $config[4] . ' days in advance.';
                         }
                     }
 
-                    if (!$startTime->isWithinNext($config[5] + 1)) {
+                    if (!$startTime->isWithinNext(($config[5] + 1) . ' days')) {
                         return 'Events can only be scheduled ' . $config[5] . ' days in advance.';
                     }
 
@@ -137,7 +153,7 @@ class EventsTable extends Table
         $validator
             ->dateTime('event_end')
             ->requirePresence('event_end', 'create')
-            ->notEmpty('event_end')
+            ->notEmptyString('event_end')
             ->add('event_end', 'custom', [
                 'rule' => function ($value, $context) {
                     if ($context['data']['event_start'] >= $value) {
@@ -152,40 +168,40 @@ class EventsTable extends Table
         $validator
             ->dateTime('booking_start')
             ->requirePresence('booking_start', 'create')
-            ->notEmpty('booking_start');
+            ->notEmptyString('booking_start');
 
         $validator
             ->dateTime('booking_end')
             ->requirePresence('booking_end', 'create')
-            ->notEmpty('booking_end');
+            ->notEmptyString('booking_end');
 
         $validator
             ->decimal('cost')
             ->requirePresence('cost', 'create')
-            ->notEmpty('cost');
+            ->notEmptyString('cost');
 
         $validator
-            ->allowEmpty('eventbrite_link');
+            ->allowEmptyString('eventbrite_link');
 
         $validator
             ->integer('free_spaces')
             ->requirePresence('free_spaces', 'create')
-            ->notEmpty('free_spaces');
+            ->notEmptyString('free_spaces');
 
         $validator
             ->integer('paid_spaces')
             ->requirePresence('paid_spaces', 'create')
-            ->notEmpty('paid_spaces');
+            ->notEmptyString('paid_spaces');
 
         $validator
             ->boolean('members_only')
             ->requirePresence('members_only', 'create')
-            ->notEmpty('members_only');
+            ->notEmptyString('members_only');
 
         $validator
             ->integer('age_restriction')
             ->requirePresence('age_restriction', 'create')
-            ->notEmpty('age_restriction')
+            ->notEmptyString('age_restriction')
             ->add('age_restriction', 'inList', [
                 'rule' => ['inList', [0, 13, 16, 18, 21]]
             ]);
@@ -193,33 +209,32 @@ class EventsTable extends Table
         $validator
             ->boolean('attendees_require_approval')
             ->requirePresence('attendees_require_approval', 'create')
-            ->notEmpty('attendees_require_approval');
+            ->notEmptyString('attendees_require_approval');
 
         $validator
             ->dateTime('attendee_cancellation')
             ->requirePresence('attendee_cancellation', 'create')
-            ->notEmpty('attendee_cancellation');
+            ->notEmptyString('attendee_cancellation');
 
         $validator
-            ->allowEmpty('extend_registration')
+            ->allowEmptyString('extend_registration')
             ->add('extend_registration', 'inList', [
                 'rule' => ['inList', [0, 15, 20, 25, 30]]
             ]);
 
         $validator
-            ->allowEmpty('contact_id');
+            ->allowEmptyString('contact_id');
 
         $validator
             ->requirePresence('room_id', 'create')
-            ->notEmpty('room_id')
+            ->notEmptyString('room_id')
             ->add('room_id', 'custom', [
                 'rule' => function ($value, $context) {
                     if (empty($value)) {
                         return true;
                     }
 
-                    $this->Rooms = TableRegistry::get('Rooms');
-                    $room = $this->Rooms->get($value);
+                    $room = $this->fetchTable('Rooms')->get($value);
                     if (!$room->exclusive) {
                         return true;
                     }
@@ -228,7 +243,7 @@ class EventsTable extends Table
                     if (isset($context['data']['id'])) {
                         $id = intval($context['data']['id']);
                         if ($id > 0) {
-                            $events = TableRegistry::get('Events');
+                            $events = $this->fetchTable('Events');
                             $event = $events->find()->where(['id =' => $id])->first();
                             if ($event) {
                                 $context['data']['booking_start'] = $event['booking_start'];
@@ -252,7 +267,7 @@ class EventsTable extends Table
                         $query['id !='] = $context['data']['id'];
                     }
 
-                    $conflictingEvents = $this->find('list', ['fields' => ['id', 'name']])->where($query);
+                    $conflictingEvents = $this->find('list', keyField: 'id', valueField: 'name')->where($query);
 
                     if ($conflictingEvents->count() == 0) {
                         return true;
@@ -284,7 +299,7 @@ class EventsTable extends Table
                     if (isset($context['data']['id'])) {
                         $id = intval($context['data']['id']);
                         if ($id > 0) {
-                            $events = TableRegistry::get('Events');
+                            $events = $this->fetchTable('Events');
                             $event = $events->find()->where(['id =' => $id])->first();
                             if ($event) {
                                 $context['data']['booking_start'] = $event['booking_start'];
@@ -324,12 +339,9 @@ class EventsTable extends Table
 
                         if ($conflictingEvents->count() > 0) {
                             if (empty($toolNames)) {
-                                $tools = TableRegistry::get('Tools');
+                                $tools = $this->fetchTable('Tools');
                                 $query = $tools
-                                    ->find('list', [
-                                        'keyField' => 'id',
-                                        'valueField' => 'name'
-                                    ]);
+                                    ->find('list', keyField: 'id', valueField: 'name');
                                 foreach ($query as $id => $name) {
                                     $toolNames[$id] = $name;
                                 }
@@ -355,35 +367,35 @@ class EventsTable extends Table
         $validator
             ->integer('class_number')
             ->requirePresence('class_number', 'create')
-            ->notEmpty('class_number');
+            ->notEmptyString('class_number');
 
         $validator
             ->boolean('sponsored')
             ->requirePresence('sponsored', 'create')
-            ->notEmpty('sponsored');
+            ->notEmptyString('sponsored');
 
         $validator
             ->requirePresence('status', 'create')
-            ->notEmpty('status')
+            ->notEmptyString('status')
             ->add('status', 'inList', [
                 'rule' => ['inList', ['approved', 'completed', 'cancelled', 'pending', 'rejected']]
             ]);
 
         $validator
-            ->allowEmpty('rejected_by');
+            ->allowEmptyString('rejected_by');
 
         $validator
-            ->allowEmpty('rejection_reason');
+            ->allowEmptyString('rejection_reason');
 
         $validator
             ->requirePresence('created_by', 'create')
-            ->notEmpty('created_by');
+            ->notEmptyString('created_by');
 
         $validator
-            ->allowEmpty('cancel_notification');
+            ->allowEmptyString('cancel_notification');
 
         $validator
-            ->allowEmpty('reminder_notification');
+            ->allowEmptyString('reminder_notification');
 
         $validator
             ->boolean('notify_instructor_of_registers');
@@ -401,7 +413,7 @@ class EventsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['room_id'], 'Rooms'));
         $rules->add($rules->existsIn(['fulfills_prerequisite_id'], 'FulfillsPrerequisites'));
@@ -428,7 +440,7 @@ class EventsTable extends Table
      */
     public function getTotalSpaces($id)
     {
-        $event = $this->get($id, ['fields' => ['free_spaces', 'paid_spaces']]);
+        $event = $this->get($id, fields: ['free_spaces', 'paid_spaces']);
 
         if ($event->free_spaces == 0 && $event->paid_spaces == 0) {
             return true;
@@ -445,7 +457,7 @@ class EventsTable extends Table
      */
     public function getFilledSpaces($id)
     {
-        $event = $this->get($id, ['fields' => ['free_spaces', 'paid_spaces']]);
+        $event = $this->get($id, fields: ['free_spaces', 'paid_spaces']);
 
         if ($event->free_spaces == 0 && $event->paid_spaces == 0) {
             return true;
@@ -466,7 +478,7 @@ class EventsTable extends Table
 
     public function hasFreeSpaces($id)
     {
-        $event = $this->get($id, ['fields' => ['free_spaces', 'paid_spaces']]);
+        $event = $this->get($id, fields: ['free_spaces', 'paid_spaces']);
 
         if ($event->free_spaces == 0 && $event->paid_spaces == 0) {
             return true;
@@ -497,7 +509,7 @@ class EventsTable extends Table
 
     public function hasPaidSpaces($id)
     {
-        $event = $this->get($id, ['fields' => ['cost', 'free_spaces', 'paid_spaces']]);
+        $event = $this->get($id, fields: ['cost', 'free_spaces', 'paid_spaces']);
 
         if ($event->cost) {
             if ($event->paid_spaces == 0) {

@@ -1,30 +1,41 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Table\EventsTable;
 use App\Model\Table\RegistrationsTable;
-use Braintree_ClientToken;
-use Braintree_Configuration;
-use Braintree_Transaction;
 use Cake\Core\Configure;
-use Cake\Event\Event;
-use Cake\I18n\Time;
-use Cake\ORM\TableRegistry;
+use Cake\Event\EventInterface;
+use Cake\I18n\DateTime;
 use Cake\Utility\Security;
+use Dms\Kit\Payments\BraintreeConfig;
+use Dms\Kit\Payments\BraintreePayments;
+use Dms\Kit\Payments\SaleRequest;
 
 /**
  * Registrations Controller
  *
+ * Cake 3 -> Cake 5 port (slice R). Behaviour is the Cake 3 behaviour, including its bugs (see the notes marked
+ * CAKE5-PORT and calendar-cake5-r-CHANGES.md). Braintree goes through Dms\Kit\Payments\BraintreePayments.
+ *
  * @property RegistrationsTable $Registrations
+ * @property EventsTable $Events
  */
 class RegistrationsController extends AppController
 {
+    /** @var RegistrationsTable */
+    protected $Registrations;
 
-    public function beforeFilter(Event $event)
+    /** @var EventsTable */
+    protected $Events;
+
+    public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
 
-        $this->Auth->allow(['cancel', 'event', 'view']);
+        // Cake 3: $this->Auth->allow(['cancel', 'event', 'view'])
+        $this->Authentication->allowUnauthenticated(['cancel', 'event', 'view']);
 
         $this->Crud->mapAction('event', 'Crud.Add');
         $this->Crud->mapAction('accept', 'Crud.Edit');
@@ -34,25 +45,34 @@ class RegistrationsController extends AppController
         $this->Crud->disable(['Add', 'Edit', 'Index', 'Delete']);
     }
 
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        // Cake 3 auto-loaded $this->Registrations; Cake 5 needs an explicit table.
+        $this->Registrations = $this->fetchTable('Registrations');
+        // Email is loaded in AppController::initialize() (slice M hunk, merged);
+        // no controller-local load here, so Email loads exactly once per path.
+    }
+
     public function event($eventId = null)
     {
-        if ($this->Auth->user() && $this->Registrations->exists([
+        if ($this->currentUser() && $this->Registrations->exists([
                 'event_id' => $eventId,
-                'ad_username' => $this->Auth->user('samaccountname')
+                'ad_username' => $this->currentUsername()
             ])) {
             $registration = $this->Registrations->find('all')
                 ->select(['id'])
                 ->where([
                     'event_id' => $eventId,
-                    'ad_username' => $this->Auth->user('samaccountname')
+                    'ad_username' => $this->currentUsername()
                 ])
                 ->first();
 
             return $this->redirect(['action' => 'view', $registration->id]);
         }
 
-        $this->Events = TableRegistry::get('Events');
-        $now = new Time();
+        $this->Events = $this->fetchTable('Events');
         if (!$this->Events->exists([
             'id' => $eventId,
             'status' => 'approved',
@@ -62,50 +82,47 @@ class RegistrationsController extends AppController
         }
 
         $event = $this->Events->get($eventId);
-        $now = new Time();
-        $cutoff = new Time($event->attendee_cancellation);
-        $cutoff->addMinutes($event->extend_registration);
+        $now = new DateTime();
+        // Cake 5 DateTime is immutable: assign the result back (gotcha 4)
+        $cutoff = (new DateTime($event->attendee_cancellation))->addMinutes((int)$event->extend_registration);
 
         if ($now > $cutoff) {
             return $this->redirect($this->referer());
         }
 
-        $this->Crud->on('beforeRender', function (Event $event) {
-            $eventInfo = $this->Events->get($this->passedArgs[0], [
-                'contain' => 'RequiresPrerequisites'
-            ]);
+        $this->Crud->on('beforeRender', function (EventInterface $event) use ($eventId) {
+            $eventInfo = $this->Events->get($eventId, contain: ['RequiresPrerequisites']);
             $this->set('event', $eventInfo);
             $this->set(
                 'continuedDates',
                 $this->Events->find('all')
                     ->select(['class_number', 'event_start', 'event_end'])
-                    ->where(['part_of_id' => $this->passedArgs[0]])
-                    ->order('class_number ASC')
+                    ->where(['part_of_id' => $eventId])
+                    ->orderBy('class_number ASC')
                     ->toArray()
             );
-            $this->set('authUser', $this->Auth->user());
+            $this->set('authUser', $this->currentUser());
 
             if (!empty($eventInfo->requires_prerequisite)) {
-                $this->set('meetsPreq', parent::currentUserInGroup($eventInfo->requires_prerequisite->ad_group, /* $forceRefreshGroups= */ true));
+                $this->set('meetsPreq', $this->currentUserInGroup($eventInfo->requires_prerequisite->ad_group, /* $forceRefreshGroups= */ true));
             }
 
-            $paidSpacesAvailable = $this->Events->hasPaidSpaces($this->passedArgs[0]);
+            $paidSpacesAvailable = $this->Events->hasPaidSpaces($eventId);
 
             if ($paidSpacesAvailable) {
-                $this->__configureBraintree();
-                $this->set('clientToken', Braintree_ClientToken::generate());
+                $this->set('clientToken', $this->braintree()->generateClientToken());
             }
 
-            $this->set('hasFreeSpaces', $this->Events->hasFreeSpaces($this->passedArgs[0]));
+            $this->set('hasFreeSpaces', $this->Events->hasFreeSpaces($eventId));
             $this->set('hasPaidSpaces', $paidSpacesAvailable);
             $this->set('editKey', bin2hex(Security::randomBytes(16)));
         });
 
-        $this->Crud->on('beforeSave', function (Event $event) {
-            $this->Events = TableRegistry::get('Events');
+        $this->Crud->on('beforeSave', function (EventInterface $event) {
+            $this->Events = $this->fetchTable('Events');
             $registration = $event->getSubject()->entity;
-            if ($registration->errors()) {
-                $errors = $registration->errors();
+            if ($registration->getErrors()) {
+                $errors = $registration->getErrors();
                 // Concatenate all error messages into a single string
                 $errMessage = '';
                 foreach ($errors as $error) {
@@ -116,59 +133,51 @@ class RegistrationsController extends AppController
             } elseif ($registration->type == 'paid') {
                 if (!$this->Events->hasPaidSpaces($registration->event_id)) {
                     $this->Flash->error('This event no longer has any paid spaces available. You have not been charged.');
-                    $registration->errors('type', ['This event no longer has any paid spaces available.']);
+                    $registration->setError('type', ['This event no longer has any paid spaces available.']);
                     $event->stopPropagation();
                 } else {
-                    $nameParts = explode(' ', $registration->name);
-                    $firstName = $nameParts[0];
-                    $lastName = '';
-                    $partCount = count($nameParts);
-                    for ($i = 1; $i < $partCount; $i++) {
-                        $lastName .= $nameParts[$i] . ' ';
-                    }
-
                     $eventData = $this->Events->get($registration->event_id);
 
-                    $this->__configureBraintree();
-                    $result = Braintree_Transaction::sale([
-                        'amount' => $eventData->cost,
-                        'paymentMethodNonce' => $registration->payment_method_nonce,
-                        'options' => ['submitForSettlement' => true],
-                        'customer' => [
-                            'email' => $registration->email,
-                            'phone' => $registration->phone,
-                            'firstName' => $firstName,
-                            'lastName' => $lastName
-                        ],
-                        'customFields' => [
-                            'event_id' => $registration->event_id,
-                            'event_name' => $eventData->name
-                        ]
-                    ]);
+                    // CAKE5-PORT: cost is a float in both builds (EventsTable maps the
+                    // DECIMAL column to float); the W4 Cake 3 gateway golden sends "5",
+                    // so pass the float through unchanged (a "5.00" string changed the
+                    // gateway log and failed the golden).
+                    $result = $this->braintree()->sale(SaleRequest::forRegistration(
+                        (float)$eventData->cost,
+                        (string)$registration->payment_method_nonce,
+                        $registration->email,
+                        $registration->phone,
+                        (string)$registration->name,
+                        $registration->event_id,
+                        (string)$eventData->name
+                    ));
 
-                    if (isset($result->success) && $result->success) {
-                        $event->getSubject()->entity->transaction_id = $result->transaction->id;
+                    if ($result->success) {
+                        $registration->transaction_id = $result->transactionId;
                     } else {
                         $this->Flash->error($result->message);
-                        $event->getSubject()->entity->errors('transaction_id', [$result->message]);
+                        $registration->setError('transaction_id', [$result->message]);
                         //$event->stopPropagation();
                     }
                 }
             } else {
                 if (!$this->Events->hasFreeSpaces($registration->event_id)) {
                     $this->Flash->error('This event no longer has any free spaces available.');
-                    $$registration->errors('type', ['This event no longer has any free spaces available.']);
+                    // KNOWN BUG, PRESERVED (Cake 3 RegistrationsController.php:160): `$$registration` turns the entity into a
+                    // variable-variable name. PHP 8 throws "Object of class ... could not be converted to string", so the
+                    // request ends in the 500 error page after the flash above was queued. Do not "fix" without owner sign-off.
+                    $$registration->setError('type', ['This event no longer has any free spaces available.']);
                     $event->stopPropagation();
                 }
             }
         });
 
-        $this->Crud->on('afterSave', function (Event $event) {
-            $this->Events = TableRegistry::get('Events');
+        $this->Crud->on('afterSave', function (EventInterface $event) {
+            $this->Events = $this->fetchTable('Events');
             /** @var \App\Model\Entity\Event $eventReference */
             $eventReference = $this->Events->get(
                 $event->getSubject()->entity->event_id,
-                ['contain' => 'Contacts']
+                contain: ['Contacts']
             );
             $registration = $event->getSubject()->entity;
 
@@ -180,7 +189,7 @@ class RegistrationsController extends AppController
 
                 $this->Email->sendRegistrationRequested(
                     $registration, //Registration
-                    $eventReference, //Event
+                    $eventReference //Event
                 );
 
             } else {
@@ -198,51 +207,65 @@ class RegistrationsController extends AppController
             }
         });
 
-        $this->Crud->on('beforeRedirect', function (Event $event) {
-            $event->getSubject()->url = [
+        $this->Crud->on('beforeRedirect', function (EventInterface $event) {
+            $subject = $event->getSubject();
+            $subject->url = [
                 'action' => 'view',
-                $event->getSubject()->entity->id
+                $subject->entity->id
             ];
 
-            if (!$event->getSubject()->entity->ad_username) {
-                $event->subject->url['?'] = ['edit_key' => $event->getSubject()->entity->edit_key];
+            if (!$subject->entity->ad_username) {
+                $subject->url['?'] = ['edit_key' => $subject->entity->edit_key];
             }
         });
 
         return $this->Crud->execute();
     }
 
-    private function __configureBraintree()
+    /**
+     * Braintree gateway from the same Configure keys the Cake 3 __configureBraintree() read.
+     */
+    private function braintree(): BraintreePayments
     {
-        Braintree_Configuration::environment(Configure::read('Braintree.environment'));
-        Braintree_Configuration::merchantId(Configure::read('Braintree.merchantId'));
-        Braintree_Configuration::publicKey(Configure::read('Braintree.publicKey'));
-        Braintree_Configuration::privateKey(Configure::read('Braintree.privateKey'));
+        return BraintreePayments::fromConfig(new BraintreeConfig(
+            (string)Configure::read('Braintree.environment'),
+            (string)Configure::read('Braintree.merchantId'),
+            (string)Configure::read('Braintree.publicKey'),
+            (string)Configure::read('Braintree.privateKey')
+        ));
     }
 
     public function view($id = null)
     {
         // Manual check in method to allow non-members to edit their data via an edit key
-        if (!$this->isAuthorized($this->Auth->user())) {
+        if (!$this->isAuthorized($this->currentUser())) {
             return $this->redirect($this->referer());
         }
 
-        $this->Crud->on('beforeFind', function (Event $event) {
+        $this->Crud->on('beforeFind', function (EventInterface $event) {
             $event->getSubject()->query->contain(['Events']);
         });
 
         return $this->Crud->execute();
     }
 
+    /**
+     * Cake 3 isAuthorized(): the registration owner (edit key or AD username), the event creator for
+     * accept/cancel/reject/view, or a Calendar Admin. Sets the `isAdmin` view variable as a side effect.
+     *
+     * Logged-in users are also checked by App\Policy\RequestPolicy (checkRegistrations); this override is
+     * the explicit check used by view() and cancel(), which allow anonymous access with an edit key.
+     *
+     * @param array<string, mixed>|null $user Identity data (null = anonymous)
+     * @return bool
+     */
     public function isAuthorized($user = null)
     {
-        $regId = (int)$this->request->params['pass'][0];
+        $regId = (int)$this->request->getParam('pass')[0];
 
         if (in_array($this->request->getParam('action'), ['accept', 'cancel', 'reject', 'view'])) {
             if (isset($user['samaccountname'])) {
-                $registration = $this->Registrations->get($regId, [
-                    'contain' => ['Events']
-                ]);
+                $registration = $this->Registrations->get($regId, contain: ['Events']);
 
                 if ($user['samaccountname'] == $registration->event->created_by) {
                     return true;
@@ -250,43 +273,43 @@ class RegistrationsController extends AppController
             }
         }
 
-        $this->set('isAdmin', parent::inAdminstrativeGroup($user, 'Calendar Admins'));
+        $this->set('isAdmin', $this->inAdminstrativeGroup($user, 'Calendar Admins'));
 
         return $this->Registrations->isOwnedBy($regId, [
                 'ad_username' => (isset($user['samaccountname']) ? $user['samaccountname'] : null),
-                'edit_key' => (isset($this->request->query['edit_key']) ? $this->request->query['edit_key'] : null)
-            ]) || parent::isAuthorized($user);
+                'edit_key' => $this->request->getQuery('edit_key'),
+            ]) || $this->inAdminstrativeGroup($user, 'Calendar Admins');
     }
 
     public function cancel($id = null)
     {
         // Manual check in method to allow non-members to edit their data via an edit key
-        if (!$this->isAuthorized($this->Auth->user())) {
+        if (!$this->isAuthorized($this->currentUser())) {
             return $this->redirect($this->referer());
         }
 
-        $this->Crud->on('beforeFind', function (Event $event) {
+        $this->Crud->on('beforeFind', function (EventInterface $event) {
             $event->getSubject()->query->contain(['Events']);
         });
 
-        $this->Crud->on('beforeSave', function (Event $event) {
-            $now = new Time();
-            if ($now > $event->getSubject()->entity->event->attendee_cancellation && !parent::inAdminstrativeGroup($this->Auth->user(), 'Calendar Admins')) {
+        $this->Crud->on('beforeSave', function (EventInterface $event) use ($id) {
+            $now = new DateTime();
+            if ($now > $event->getSubject()->entity->event->attendee_cancellation && !$this->inAdminstrativeGroup($this->currentUser(), 'Calendar Admins')) {
                 $this->Flash->error('Your RSVP to this event could not be cancelled. The cutoff time for cancellations has already passed.');
                 $event->stopPropagation();
             } else {
                 $event->getSubject()->entity->status = 'cancelled';
                 $this->Flash->success('Your RSVP to this event has been cancelled.');
-                $this->Registrations->refund($this->passedArgs[0]);
+                $this->Registrations->refund($id);
             }
         });
 
-        $this->Crud->on('afterSave', function (Event $event) {
-            $this->Events = TableRegistry::get('Events');
+        $this->Crud->on('afterSave', function (EventInterface $event) {
+            $this->Events = $this->fetchTable('Events');
             /** @var \App\Model\Entity\Event $eventReference */
             $eventReference = $this->Events->get(
                 $event->getSubject()->entity->event_id,
-                ['contain' => 'Contacts']
+                contain: ['Contacts']
             );
             $registration = $event->getSubject()->entity;
 
@@ -300,14 +323,15 @@ class RegistrationsController extends AppController
             }
         });
 
-        $this->Crud->on('beforeRedirect', function (Event $event) {
-            $event->getSubject()->url = [
+        $this->Crud->on('beforeRedirect', function (EventInterface $event) {
+            $subject = $event->getSubject();
+            $subject->url = [
                 'action' => 'view',
-                $event->getSubject()->entity->id
+                $subject->entity->id
             ];
 
-            if (!$event->getSubject()->entity->ad_username) {
-                $event->subject->url['?'] = ['edit_key' => $event->getSubject()->entity->edit_key];
+            if (!$subject->entity->ad_username) {
+                $subject->url['?'] = ['edit_key' => $subject->entity->edit_key];
             }
         });
 
@@ -318,14 +342,14 @@ class RegistrationsController extends AppController
     {
         $this->request->allowMethod(['POST']);
 
-        $this->Crud->on('beforeFind', function (Event $event) {
+        $this->Crud->on('beforeFind', function (EventInterface $event) {
             $event->getSubject()->query->contain(['Events']);
         });
 
-        $this->Crud->on('beforeSave', function (Event $event) {
-            $now = new Time();
-            $cutoff = new Time($event->getSubject()->entity->event->attendee_cancellation);
-            $cutoff->addMinutes($event->getSubject()->entity->event->extend_registration);
+        $this->Crud->on('beforeSave', function (EventInterface $event) {
+            $now = new DateTime();
+            $cutoff = (new DateTime($event->getSubject()->entity->event->attendee_cancellation))
+                ->addMinutes((int)$event->getSubject()->entity->event->extend_registration);
             if ($now > $cutoff) {
                 $this->Flash->error('RSVPs for this event can no longer be approved. The cutoff time for cancellations has already passed.');
                 $event->stopPropagation();
@@ -334,14 +358,14 @@ class RegistrationsController extends AppController
             }
         });
 
-        $this->Crud->on('afterSave', function (Event $event) {
-            $this->Events = TableRegistry::get('Events');
+        $this->Crud->on('afterSave', function (EventInterface $event) {
+            $this->Events = $this->fetchTable('Events');
             $eventReference = $this->Events->get($event->getSubject()->entity->event_id);
             $registration = $event->getSubject()->entity;
             $this->Email->sendRegistrationApproved($registration, $eventReference);
         });
 
-        $this->Crud->on('beforeRedirect', function (Event $event) {
+        $this->Crud->on('beforeRedirect', function (EventInterface $event) {
             $event->getSubject()->url = $this->referer();
         });
 
@@ -352,29 +376,29 @@ class RegistrationsController extends AppController
     {
         $this->request->allowMethod(['POST']);
 
-        $this->Crud->on('beforeFind', function (Event $event) {
+        $this->Crud->on('beforeFind', function (EventInterface $event) {
             $event->getSubject()->query->contain(['Events']);
         });
 
-        $this->Crud->on('beforeSave', function (Event $event) {
-            $now = new Time();
+        $this->Crud->on('beforeSave', function (EventInterface $event) use ($id) {
+            $now = new DateTime();
             if ($now > $event->getSubject()->entity->event->attendee_cancellation) {
                 $this->Flash->error('RSVPs for this event can no longer be rejected. The cutoff time for cancellations has already passed.');
                 $event->stopPropagation();
             } else {
                 $event->getSubject()->entity->status = 'rejected';
-                $this->Registrations->refund($this->passedArgs[0]);
+                $this->Registrations->refund($id);
             }
         });
 
-        $this->Crud->on('afterSave', function (Event $event) {
-            $this->Events = TableRegistry::get('Events');
+        $this->Crud->on('afterSave', function (EventInterface $event) {
+            $this->Events = $this->fetchTable('Events');
             $eventReference = $this->Events->get($event->getSubject()->entity->event_id);
             $registration = $event->getSubject()->entity;
             $this->Email->sendRegistrationRejected($registration, $eventReference);
         });
 
-        $this->Crud->on('beforeRedirect', function (Event $event) {
+        $this->Crud->on('beforeRedirect', function (EventInterface $event) {
             $event->getSubject()->url = $this->referer();
         });
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Component;
 
@@ -6,26 +7,27 @@ use App\Model\Entity\Contact;
 use App\Model\Entity\Event;
 use App\Model\Entity\Registration;
 use Cake\Controller\Component;
-use Cake\I18n\Time;
-use Cake\Mailer\Email;
+use Cake\I18n\DateTime;
+use Cake\Mailer\Mailer;
 use Throwable;
 
-/** @noinspection PhpUnused */
-
+/**
+ * Transactional mail for the calendar (15 public send* methods, called by the controllers).
+ *
+ * Cake 5 port. The public method names and signatures, the subjects, the bodies and the recipients are unchanged
+ * from Cake 3. Delivery: `Cake\Mailer\Mailer` on the `Email.default` profile; the profile's transport name comes
+ * from EMAIL_TRANSPORT (default `sparkpost` = the libkit SparkPost API transport, click tracking off). Every send
+ * is wrapped in `catch (Throwable)`: a mail problem is logged and never breaks the request.
+ *
+ * The bodies are built inline (HTML only, no template and no layout), exactly as before; the templates under
+ * templates/email and templates/layout/email are the stock Cake ones and are not used by this component.
+ *
+ * @noinspection PhpUnused
+ */
 class EmailComponent extends Component
 {
-    protected $_config = null;
-
-    /**
-     * Execute any other additional setup for your component.
-     * @param array $config Extra config options to pass in.
-     * @return void
-     */
-    public function initialize(array $config = [])
-    {
-        parent::initialize($config);
-        $this->_config = $config;
-    }
+    // Cake 3 kept the raw constructor config in a `protected $_config` property here and re-assigned it in
+    // initialize(); neither did anything (InstanceConfigTrait already owns `_config`, typed array in Cake 5), so both are gone.
 
     /**
      * @param Contact $contact The contact reference for the user who submitted the event.
@@ -57,19 +59,21 @@ class EmailComponent extends Component
      * @param string $body Email body
      * @return void
      */
-    private function sendEmail(string $name, string $addr, string $subject, string $body)
+    private function sendEmail(string $name, string $addr, string $subject, string $body): void
     {
         try {
-            $email = new Email();
-            $email
-                ->setTransport('sparkpost')
+            // `new Mailer()` applies the `Email.default` profile (transport name, EMAIL_TRANSPORT). Cake 3 hard-coded
+            // setTransport('sparkpost'); the profile default is the same name.
+            $mailer = new Mailer();
+            $mailer
                 ->setFrom(['admin@dallasmakerspace.org' => 'Dallas Makerspace'])
                 ->setTo([$addr => $name])
                 ->setSubject($this->limitSubject($subject))
                 ->setEmailFormat('html')
-                ->send($body);
+                ->deliver($body);
         } catch (Throwable $th) {
-            $this->log($th);
+            // Cake 3 handed the Throwable object to log() (print_r dump); the string cast is message plus trace.
+            $this->log((string)$th);
         }
     }
 
@@ -82,7 +86,7 @@ class EmailComponent extends Component
      */
     private function limitSubject(string $subject = "", int $length = 60): string
     {
-        return strlen($subject) > $length ? substr($subject, 0, $length - 3) . "..." : $subject;
+        return mb_strlen($subject) > $length ? mb_substr($subject, 0, $length - 3) . "..." : $subject;
     }
 
     /**
@@ -138,7 +142,7 @@ class EmailComponent extends Component
     {
         $subject = 'DMS Event Submission: ' . $event->name;
 
-        $time = new Time($event->created);
+        $time = new DateTime($event->created);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
@@ -162,7 +166,7 @@ class EmailComponent extends Component
     {
         $subject = 'DMS Event Approval: ' . $event->name;
 
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
@@ -207,7 +211,7 @@ class EmailComponent extends Component
     public function sendEventStarting(Registration $registration, Event $event)
     {
         $subject = 'DMS Reminder: ' . $event->name . ' Starts Soon';
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
@@ -252,7 +256,7 @@ class EmailComponent extends Component
     public function sendCancellationReminder(Registration $registration, Event $event)
     {
         $subject = 'DMS Reminder: ' . $event->name . ' Cancellation Cutoff is Soon';
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
@@ -285,7 +289,7 @@ class EmailComponent extends Component
     public function sendRegistrationConfirmation(Registration $registration, Event $event)
     {
         $subject = 'DMS Event Confirmation: ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
         $currentYear = date('Y');
 
@@ -319,7 +323,7 @@ class EmailComponent extends Component
     public function sendRegistrationPending(Registration $registration, Event $event)
     {
         $subject = 'DMS Event Pending: ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
@@ -353,7 +357,7 @@ class EmailComponent extends Component
     public function sendRegistrationRequested(Registration $registration, Event $event)
     {
         $subject = 'DMS Attendance Request: ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
         $userName = $event->contact->name;
 
@@ -385,7 +389,7 @@ class EmailComponent extends Component
     public function sendRegistrationToInstructor(Registration $registration, Event $event)
     {
         $subject = 'DMS New Registration: ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
         $userName = $event->contact->name;
 
@@ -417,7 +421,7 @@ class EmailComponent extends Component
     public function sendCancellationToInstructor(Registration $registration, Event $event)
     {
         $subject = 'DMS Cancelled Registration: ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
         $userName = $event->contact->name;
 
@@ -450,7 +454,7 @@ class EmailComponent extends Component
     public function sendRegistrationApproved(Registration $registration, Event $event)
     {
         $subject = 'DMS Event Update: Attendance approved for ' . $event->name;
-        $time = new Time($event->event_start);
+        $time = new DateTime($event->event_start);
         $formattedTime = $time->i18nFormat('EEEE MMMM d, h:mma', 'America/Chicago');
 
         $message = <<<MSGBODY
