@@ -4,9 +4,16 @@
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed"
+    "test:headed": "playwright test --headed",
+    "baseline:build": "bash harness/scripts/build-image.sh",
+    "baseline:run": "bash harness/scripts/run.sh",
+    "baseline:update": "UPDATE=1 bash harness/scripts/run.sh",
+    "baseline:har": "RECORD_HAR=1 bash harness/scripts/run.sh --project=har"
   },
   "devDependencies": {
-    "@playwright/test": "1.60.0"
+    "@playwright/test": "1.60.0",
+    "@types/node": "24.19.2",
+    "mysql2": "3.24.6",
+    "tsx": "4.23.15"
   }
 }

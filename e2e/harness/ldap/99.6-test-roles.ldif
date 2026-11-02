@@ -1,0 +1,71 @@
+# Overlay for the baseline harness: one synthetic user per single admin role, so per-role behaviour can be
+# characterised in isolation. Loaded after the submodule's seed LDIFs (which stay untouched).
+# All passwords = "password" (same SSHA hash as the seed users).
+
+dn: cn=cal-admin,ou=Members,dc=dms,dc=local
+cn: cal-admin
+displayName: cal-admin
+employeeID: 0000000011
+memberOf: CN=Members,OU=Security,OU=Groups,DC=dms,DC=local
+memberOf: CN=Calendar Admins,OU=Applications,OU=Groups,DC=dms,DC=local
+objectcategory: cn=Person,cn=Schema,cn=Configuration,dc=dms,dc=local
+objectclass: user
+objectclass: top
+sAMAccountName: cal-admin
+sn: cal-admin
+mail: cal-admin@dms.local
+userPassword: {SSHA}EadtUhuwl73vtXqj5ns6I5BdRqabRDs=
+userPrincipalName: cal-admin@dms.local
+UserAccountControl: 512
+telephonenumber: 555-0111
+
+dn: cn=honor-admin,ou=Members,dc=dms,dc=local
+cn: honor-admin
+displayName: honor-admin
+employeeID: 0000000012
+memberOf: CN=Members,OU=Security,OU=Groups,DC=dms,DC=local
+memberOf: CN=Honorarium Admins,OU=Applications,OU=Groups,DC=dms,DC=local
+objectcategory: cn=Person,cn=Schema,cn=Configuration,dc=dms,dc=local
+objectclass: user
+objectclass: top
+sAMAccountName: honor-admin
+sn: honor-admin
+mail: honor-admin@dms.local
+userPassword: {SSHA}EadtUhuwl73vtXqj5ns6I5BdRqabRDs=
+userPrincipalName: honor-admin@dms.local
+UserAccountControl: 512
+telephonenumber: 555-0112
+
+dn: cn=fin-report,ou=Members,dc=dms,dc=local
+cn: fin-report
+displayName: fin-report
+employeeID: 0000000013
+memberOf: CN=Members,OU=Security,OU=Groups,DC=dms,DC=local
+memberOf: CN=Financial Reporting,OU=Security,OU=Groups,DC=dms,DC=local
+objectcategory: cn=Person,cn=Schema,cn=Configuration,dc=dms,dc=local
+objectclass: user
+objectclass: top
+sAMAccountName: fin-report
+sn: fin-report
+mail: fin-report@dms.local
+userPassword: {SSHA}EadtUhuwl73vtXqj5ns6I5BdRqabRDs=
+userPrincipalName: fin-report@dms.local
+UserAccountControl: 512
+telephonenumber: 555-0113
+
+dn: cn=super-admin,ou=Members,dc=dms,dc=local
+cn: super-admin
+displayName: super-admin
+employeeID: 0000000014
+memberOf: CN=Members,OU=Security,OU=Groups,DC=dms,DC=local
+memberOf: CN=Calendar Super Admins,OU=Groups,OU=Admin,DC=dms,DC=local
+objectcategory: cn=Person,cn=Schema,cn=Configuration,dc=dms,dc=local
+objectclass: user
+objectclass: top
+sAMAccountName: super-admin
+sn: super-admin
+mail: super-admin@dms.local
+userPassword: {SSHA}EadtUhuwl73vtXqj5ns6I5BdRqabRDs=
+userPrincipalName: super-admin@dms.local
+UserAccountControl: 512
+telephonenumber: 555-0114

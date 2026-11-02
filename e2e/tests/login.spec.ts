@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './support/fixtures';
 
 import { testUsers } from './data/test-users';
 import { EventsIndexPage } from './pages/events-index.page';

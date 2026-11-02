@@ -1,0 +1,202 @@
+# Baseline harness stack. Always invoke with:
+#   docker compose -p calbase --env-file e2e/harness/baseline.env -f e2e/harness/compose.baseline.yml ...
+# Required in the shell: BASEROOT (dir for baseline artefacts, outside any git repo), CALENDAR_IMAGE,
+# BASELINE_ID. Optional: ADAPTER (default cake3), ANCHOR.
+#
+# Safety: services live on an `internal` network (no internet egress) and publish no host ports.
+name: calbase
+
+x-app-env: &app-env
+  LD_PRELOAD: /faketime/libfaketime.so.1
+  FAKETIME: "@2031-01-15 16:00:00"
+  FAKETIME_DONT_RESET: "1"
+  DONT_FAKE_MONOTONIC: "1"
+
+networks:
+  backend:
+    internal: true
+  egress: {}
+
+volumes:
+  faketime: {}
+  files: {}
+  pw_node_modules: {}
+
+services:
+  db:
+    image: mariadb:10.6@sha256:f1c56f035ed268a0d7c2c2e06dc879f6319b997cb434cf822a4cfd72a7aa184d
+    # NOTE: the production DB engine/version/charset is unknown (Phase P0 question); utf8 mirrors Cake 3 defaults.
+    command: ["--character-set-server=utf8", "--collation-server=utf8_general_ci"]
+    environment:
+      MARIADB_ROOT_PASSWORD: root-synthetic
+      MARIADB_DATABASE: dms_calendar
+      MARIADB_USER: calendar
+      MARIADB_PASSWORD: calendar
+    tmpfs:
+      - /var/lib/mysql
+    volumes:
+      - ${BASEROOT:?set BASEROOT}:/baselines
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+    networks: [backend]
+
+  ldap:
+    image: osixia/openldap:1.5.0
+    command: --copy-service --loglevel info
+    environment:
+      LDAP_ORGANISATION: Example Org
+      LDAP_DOMAIN: dms.local
+      LDAP_BASE_DN: dc=dms,dc=local
+      LDAP_ADMIN_PASSWORD: Adm1n!
+      LDAP_CONFIG_PASSWORD: c0nfig
+      LDAP_BACKEND: mdb
+      LDAP_TLS_VERIFY_CLIENT: try
+    hostname: ldap
+    volumes:
+      - ../../dms-ad-openldap/01-microsoft.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.0-microsoft.ldif
+      - ../../dms-ad-openldap/02-tree.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.1-tree.ldif
+      - ../../dms-ad-openldap/03-users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.2-users.ldif
+      - ../../dms-ad-openldap/04-committees.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.3-committees.ldif
+      - ../../dms-ad-openldap/05-securitygroups.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.4-groups.ldif
+      - ../../dms-ad-openldap/06-security.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.5-security.ldif
+      - ./ldap/99.6-test-roles.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.6-test-roles.ldif
+      - ./ldap/99.7-test-role-groups.ldif:/container/service/slapd/assets/config/bootstrap/ldif/99.7-test-role-groups.ldif
+    networks:
+      backend:
+        aliases: [ldap]
+
+  mail:
+    image: mailhog/mailhog:v1.0.1
+    networks:
+      backend:
+        aliases: [mail]
+
+  faketime-init:
+    image: calbase-faketime:bullseye
+    volumes:
+      - faketime:/faketime
+    restart: "no"
+    networks: [backend]
+
+  app:
+    image: ${CALENDAR_IMAGE:?set CALENDAR_IMAGE}
+    env_file: baseline.env
+    environment:
+      <<: *app-env
+    volumes:
+      - faketime:/faketime:ro
+      - files:/var/www/webroot/files
+      - ./adapters/${ADAPTER:-cake3}/app.php:/var/www/config/app.php:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      ldap:
+        condition: service_started
+      faketime-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -o /dev/null http://localhost/"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+      start_period: 5s
+    networks:
+      backend:
+        aliases: [app]
+
+  # Shares the app's network namespace: fake Braintree on :3000, webhook sink on :4010.
+  # Restart it whenever `app` restarts.
+  fakes:
+    image: mcr.microsoft.com/playwright:v1.60.0-noble
+    network_mode: "service:app"
+    volumes:
+      - ./fakes:/fakes:ro
+    command: ["node", "/fakes/server.mjs"]
+    depends_on:
+      app:
+        condition: service_started
+
+  # Real-clock twin of `app`, only for the OIDC smoke test (JWT exp/iat checks use real time).
+  app-rt:
+    profiles: [oidc]
+    image: ${CALENDAR_IMAGE:?set CALENDAR_IMAGE}
+    env_file: baseline.env
+    environment:
+      BASE_URL: http://app-rt
+    volumes:
+      - files:/var/www/webroot/files
+      - ./adapters/${ADAPTER:-cake3}/app.php:/var/www/config/app.php:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      backend:
+        aliases: [app-rt]
+
+  keycloak:
+    profiles: [oidc]
+    image: quay.io/keycloak/keycloak:23.0.7
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: change_me
+      AD_SERVER: ldap
+      AD_BIND_UN: cn=admin,dc=dms,dc=local
+      AD_BIND_PW: Adm1n!
+      APP_ROOT_URL: http://app-rt
+      DUMMY_CLIENT_SECRET: dummy-secret-for-dev-mode
+    volumes:
+      - ../../dms-ad-openldap/keycloak/data/import:/opt/keycloak/data/import
+    networks:
+      backend:
+        aliases: [keycloak]
+
+  # Playwright runner (inside the network; no host ports needed).
+  pw:
+    profiles: [test]
+    image: mcr.microsoft.com/playwright:v1.60.0-noble
+    working_dir: /e2e
+    ipc: host
+    environment:
+      BASE_URL: http://app
+      BASE_URL_RT: http://app-rt
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: dms_calendar
+      DB_USER: calendar
+      DB_PASSWORD: calendar
+      MAIL_API: http://mail:8025
+      FAKES_API: http://app:3000
+      BASELINE_DIR: /baselines/${BASELINE_ID:?set BASELINE_ID}
+      ANCHOR: ${ANCHOR:-2031-01-15T16:00:00Z}
+      DATASET: ${DATASET:-synthetic}
+      CI: ${CI:-}
+      # per-project output locations (see scripts/env.sh) so concurrent projects never share sessions or results
+      AUTH_DIR: ${AUTH_DIR:-.auth}
+      PW_OUT_DIR: ${PW_OUT_DIR:-test-results}
+      PW_REPORT_DIR: ${PW_REPORT_DIR:-playwright-report}
+    volumes:
+      - ..:/e2e
+      - pw_node_modules:/e2e/node_modules
+      - files:/files
+      - ${BASEROOT:?set BASEROOT}:/baselines
+    networks: [backend]
+
+  # Same as pw, plus internet access: ONLY for recording the external-assets HAR (fonts/CSS CDNs).
+  pw-har:
+    profiles: [har]
+    extends:
+      service: pw
+    networks: [backend, egress]
+
+  # Optional: lets a human open the app at http://127.0.0.1:18080 without giving the app itself egress.
+  viewer:
+    profiles: [view]
+    image: alpine/socat:latest
+    command: ["TCP-LISTEN:80,fork,reuseaddr", "TCP:app:80"]
+    ports:
+      - "127.0.0.1:18080:80"
+    networks: [backend, egress]

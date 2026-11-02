@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 import { EventsIndexPage } from './events-index.page';
 
@@ -34,5 +34,15 @@ export class LoginPage {
   async loginAsMember(username: string, password: string): Promise<EventsIndexPage> {
     await this.submitCredentials(username, password);
     return new EventsIndexPage(this.page);
+  }
+
+  /** Flash/alert message shown after a failed login. */
+  get flash(): Locator {
+    return this.page.getByRole('alert').or(this.page.locator('.alert, .message')).first();
+  }
+
+  /** The nav shows the account menu only for signed-in users. */
+  async expectLoggedIn() {
+    await expect(this.page.getByRole('button', { name: 'My Account' })).toBeVisible();
   }
 }

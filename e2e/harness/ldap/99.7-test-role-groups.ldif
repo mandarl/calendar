@@ -1,0 +1,30 @@
+# Group membership for the role users. Separate file because the bootstrap loader treats a file as either
+# all-adds or all-modifies. The app resolves roles via each group's member attribute (LdapRecord $user->groups()).
+
+dn: CN=Members,OU=Security,OU=Groups,DC=dms,DC=local
+changetype: modify
+add: member
+member: cn=cal-admin,ou=Members,dc=dms,dc=local
+member: cn=honor-admin,ou=Members,dc=dms,dc=local
+member: cn=fin-report,ou=Members,dc=dms,dc=local
+member: cn=super-admin,ou=Members,dc=dms,dc=local
+
+dn: CN=Calendar Admins,OU=Applications,OU=Groups,DC=dms,DC=local
+changetype: modify
+add: member
+member: cn=cal-admin,ou=Members,dc=dms,dc=local
+
+dn: CN=Honorarium Admins,OU=Applications,OU=Groups,DC=dms,DC=local
+changetype: modify
+add: member
+member: cn=honor-admin,ou=Members,dc=dms,dc=local
+
+dn: CN=Financial Reporting,OU=Security,OU=Groups,DC=dms,DC=local
+changetype: modify
+add: member
+member: cn=fin-report,ou=Members,dc=dms,dc=local
+
+dn: CN=Calendar Super Admins,OU=Groups,OU=Admin,DC=dms,DC=local
+changetype: modify
+add: member
+member: cn=super-admin,ou=Members,dc=dms,dc=local
