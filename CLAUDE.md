@@ -58,6 +58,12 @@ composer cs
 ./vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests
 ```
 
+### End-to-end baseline (Playwright)
+
+A deterministic, offline harness captures the app's current behaviour (visual baselines, a golden crawl, functional
+tests) so a rebuilt version can be diffed against it. Read `docs/testing.md` before touching `e2e/`. Key rules:
+specs use page objects only, baselines live outside the repo, and nothing in the harness may touch production.
+
 ### Database Migrations
 
 Run migrations:
@@ -100,13 +106,13 @@ This is a CakePHP 3 MVC application following standard CakePHP conventions:
 - **Models**:
   - Tables: `src/Model/Table/` - Database operations, validations, associations
   - Entities: `src/Model/Entity/` - Individual record representation
-- **Views/Templates**: `src/Template/` - Twig templates (via WyriHaximus/TwigView plugin)
+- **Views/Templates**: `src/Template/` - plain PHP `.ctp` templates (there is no Twig usage; Twig only appears in the lockfile via `cakephp/bake` 1.x)
 - **Configuration**: `config/` directory, bootstrapped via `config/bootstrap.php`
 
 ### Key Plugins Used
 
 - **Crud**: Provides scaffolded CRUD actions in controllers
-- **BootstrapUI**: Bootstrap 4 styling for views/forms
+- **BootstrapUI**: Bootstrap 3 (3.3.6) styling for views/forms
 - **Josegonzalez/Upload**: File upload handling
 - **CsvView**: CSV export functionality
 - **Migrations**: Database schema versioning (Phinx-based)
@@ -166,7 +172,7 @@ src/
 │   ├── Table/              # Database table classes
 │   ├── Entity/             # Entity classes
 │   └── Behavior/           # Model behaviors
-├── Template/               # Twig view templates
+├── Template/               # .ctp view templates (plain PHP)
 └── View/                   # View layer customizations
 
 config/
@@ -177,7 +183,7 @@ config/
 └── Seeds/                  # Database seed files
 
 tests/
-├── TestCase/              # Unit tests mirror src/ structure
+├── TestCase/              # Only Controller/Component/WebhookComponentTest is real (stub test classes live under src/ and are never run)
 └── Fixture/               # Test fixtures
 ```
 

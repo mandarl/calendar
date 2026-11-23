@@ -3,7 +3,8 @@ FROM php:7.4-apache as base
 # Install Dependancies
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN apt update -y && \
+RUN sed -i 's|http://deb.debian.org/debian-security|http://archive.debian.org/debian-security|; s|http://security.debian.org/debian-security|http://archive.debian.org/debian-security|' /etc/apt/sources.list && \
+    apt update -y && \
     apt upgrade -y && \
     apt install -y curl zip unzip git mariadb-client && \
     chmod +x /usr/local/bin/install-php-extensions && \
